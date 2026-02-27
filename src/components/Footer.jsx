@@ -76,10 +76,6 @@ export default function Footer() {
                   <ShieldCheck size={16} className="text-[#007185]" />
                   <span className="text-[11px] font-bold text-gray-600 uppercase tracking-tight">Authorized HP Partner</span>
                </div>
-               <div className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-100 rounded-full shadow-sm">
-                  <Globe size={16} className="text-[#007185]" />
-                  <span className="text-[11px] font-bold text-gray-600 uppercase tracking-tight">US Logistics</span>
-               </div>
             </div>
           </div>
 

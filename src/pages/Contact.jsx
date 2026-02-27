@@ -76,7 +76,7 @@ export default function Contact() {
                 <Mail size={24} />
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-2">Email Support</h3>
-              <p className="text-[15px] font-medium text-gray-500 mb-4">Our team typically replies within 2 hours.</p>
+              <p className="text-[15px] font-medium text-gray-500 mb-4">Our team typically replies within 45 mins.</p>
               <a href="mailto:info@mrprinterpro.shop" className="text-[15px] font-bold text-[#007185] hover:text-[#005a6a] hover:underline">
                 info@mrprinterpro.shop
               </a>

@@ -130,10 +130,7 @@ export default function About() {
                   </div>
                 </div>
                 <div className="space-y-4 pt-8">
-                  <div className="h-32 bg-gray-900 rounded-2xl flex items-center justify-center p-6 text-white text-center">
-                    <p className="text-lg font-bold leading-tight">Global Support Network.</p>
-                  </div>
-                  <div className="h-64 rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+                  <div className="h-[400px] rounded-2xl overflow-hidden shadow-lg border border-gray-100">
                     <img src={banner3} className="w-full h-full object-cover grayscale" alt="" />
                   </div>
                 </div>
@@ -148,8 +145,8 @@ export default function About() {
         <div className="max-w-[1200px] mx-auto">
           <div className="bg-gray-50 border border-gray-100 rounded-[2.5rem] p-10 md:p-20 text-center relative overflow-hidden shadow-sm">
             <div className="relative z-10 space-y-8">
-              <h2 className="text-4xl md:text-6xl font-bold text-gray-900 tracking-tight leading-tight">Ready to <span className="text-[#007185]">Optimize?</span></h2>
-              <p className="text-gray-500 text-lg font-medium max-w-xl mx-auto">Join the thousands of professional enterprises relying on our authorized hardware solutions.</p>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight leading-tight uppercase">Ready for <span className="text-[#007185]">uninterrupted printing?</span></h2>
+              <p className="text-gray-500 text-lg font-medium max-w-2xl mx-auto">Buy now the best and authentic printers & accessories</p>
               <div className="pt-4">
                 <Link to="/shop">
                   <button className="bg-[#007185] hover:bg-[#005a6a] text-white px-12 py-4 font-bold rounded-xl transition-all shadow-lg shadow-[#007185]/10 flex items-center gap-3 mx-auto text-[16px] uppercase tracking-wider active:scale-95">
