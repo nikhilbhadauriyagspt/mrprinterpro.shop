@@ -10,7 +10,7 @@ export default function ShippingPolicy() {
       lastUpdated="February 23, 2026"
     >
       <p className="lead">
-        This Shipping & Delivery Policy is part of our Terms and Conditions ("Terms") and should be therefore read alongside our main Terms: <Link to="/terms-and-conditions">http://misterprinter.shop/terms-and-conditions</Link>.
+        This Shipping & Delivery Policy is part of our Terms and Conditions ("Terms") and should be therefore read alongside our main Terms: <Link to="/terms-and-conditions">http://mrprinterpro.shop/terms-and-conditions</Link>.
       </p>
       <p>
         Please carefully review our Shipping & Delivery Policy when purchasing our products. This policy will apply to any order you place with us.
@@ -37,7 +37,7 @@ export default function ShippingPolicy() {
 
       <h2>QUESTIONS ABOUT RETURNS?</h2>
       <p>
-        If you have questions about returns, please review our Return Policy: <Link to="/return-policy">http://misterprinter.shop/return-policy</Link>.
+        If you have questions about returns, please review our Return Policy: <Link to="/return-policy">http://mrprinterpro.shop/return-policy</Link>.
       </p>
 
       <hr />
@@ -45,7 +45,7 @@ export default function ShippingPolicy() {
       <p>If you have any further questions or comments, you may contact us by:</p>
       <div className="bg-slate-50 p-8 rounded-3xl border border-slate-100 my-8 not-prose">
         <address className="not-italic text-slate-700 font-bold leading-relaxed space-y-3">
-                     <p className="flex items-center gap-3 text-blue-600 font-black tracking-tight">Email: info@misterprinter.shop</p>          <p className="flex items-center gap-3">
+                     <p className="flex items-center gap-3 text-blue-600 font-black tracking-tight">Email: info@mrprinterpro.shop</p>          <p className="flex items-center gap-3">
             <span className="text-slate-400 font-black uppercase text-[10px] tracking-widest">Online contact form:</span>
             <Link to="/contact" className="text-blue-600 font-black ml-2 underline">Contact Us</Link>
           </p>
@@ -54,5 +54,6 @@ export default function ShippingPolicy() {
     </PolicyLayout>
   );
 }
+
 
 

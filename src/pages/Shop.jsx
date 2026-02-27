@@ -9,11 +9,10 @@ import {
   Loader2,
   Check,
   SlidersHorizontal,
-  ArrowRight,
-  Plus,
   ShoppingBag,
   Heart,
-  LayoutGrid
+  LayoutGrid,
+  Filter
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import API_BASE_URL from '../config';
@@ -116,74 +115,75 @@ export default function Shop() {
   };
 
   return (
-    <div className="bg-white min-h-screen font-urbanist pt-20 lg:pt-24">
+    <div className="bg-[#fcfcfc] min-h-screen font-sans">
       <SEO 
-        title="Industrial Catalog | MISTERPRINTER" 
-        description="Premium industrial hardware and operational systems."
+        title="Official Catalog | MrPrinterPro" 
+        description="Browse our authorized collection of premium printers and hardware."
       />
       
-      {/* --- PAGE HEADER --- */}
-      <div className="py-12 lg:py-20 px-4 md:px-10 lg:px-16 border-b-2 border-slate-900 bg-slate-50">
-        <div className="max-w-[1920px] mx-auto">
-          <div className="flex flex-col gap-6">
-            <div className="flex items-center gap-3">
-              <div className="h-1 w-8 bg-indigo-600" />
-              <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em]">Inventory Hub</span>
-            </div>
-            
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
-              <h1 className="text-4xl lg:text-7xl font-black text-slate-900 tracking-tighter uppercase leading-[0.85]">
-                Authorized<br/>
-                <span className="text-indigo-600">Product Gallery.</span>
+      {/* --- CLEAN WHITE PAGE HEADER --- */}
+      <div className="bg-white py-16 md:py-20 px-4 md:px-10 lg:px-16 border-b border-gray-100 relative overflow-hidden">
+        <div className="max-w-[1920px] mx-auto relative z-10">
+          <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="h-1 w-8 bg-[#007185] rounded-full" />
+                <span className="text-[12px] font-bold text-[#007185] uppercase tracking-widest">Authorized Inventory</span>
+              </div>
+              <h1 className="text-4xl md:text-6xl font-black text-gray-900 tracking-tighter leading-tight">
+                Product <span className="text-[#007185]">Catalog</span>
               </h1>
+              <p className="text-gray-500 text-lg md:text-xl font-medium max-w-xl leading-relaxed">
+                Authorized inventory of enterprise printers and premium hardware systems.
+              </p>
+            </div>
 
-              <div className="w-full max-w-xl relative group">
-                <form onSubmit={(e) => { e.preventDefault(); updateFilter('search', search); }} className="flex border-2 border-slate-900 shadow-[6px_6px_0px_rgba(0,0,0,0.1)]">
-                  <input 
-                    type="text" 
-                    placeholder="Search specifications..."
-                    value={search}
-                    onChange={(e) => updateFilter('search', e.target.value)}
-                    className="flex-1 h-14 px-6 text-sm bg-white focus:outline-none font-bold uppercase tracking-widest placeholder:text-slate-300"
-                  />
-                  <button type="submit" className="h-14 px-8 bg-slate-900 text-white hover:bg-indigo-600 transition-colors flex items-center justify-center">
-                    <Search size={20} strokeWidth={3} />
-                  </button>
-                </form>
+            <div className="w-full max-w-xl">
+              <div className="flex bg-gray-50 border border-gray-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-[#007185]/20 focus-within:border-[#007185] transition-all">
+                <input 
+                  type="text" 
+                  placeholder="Search by model or specification..."
+                  value={search}
+                  onChange={(e) => updateFilter('search', e.target.value)}
+                  className="flex-1 h-14 px-6 text-base text-gray-900 bg-transparent outline-none"
+                />
+                <button type="submit" onClick={(e) => { e.preventDefault(); updateFilter('search', search); }} className="h-14 px-8 bg-[#007185] text-white hover:bg-[#005a6a] transition-colors flex items-center justify-center">
+                  <Search size={22} strokeWidth={2.5} />
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* --- FILTER CONTROL BAR --- */}
-      <div className="sticky top-[80px] lg:top-[96px] z-[45] bg-white border-b-2 border-slate-900 py-4 px-4 md:px-10 lg:px-16">
+      {/* --- FILTER CONTROL BAR (HERO STYLE) --- */}
+      <div className="sticky top-[56px] z-[45] bg-white/80 backdrop-blur-md border-b border-gray-200 py-4 px-4 md:px-10 lg:px-16 shadow-sm">
         <div className="max-w-[1920px] mx-auto flex flex-wrap items-center justify-between gap-6">
           
           <div className="flex items-center gap-4">
             <button 
               onClick={() => setIsFilterOpen(!isFilterOpen)}
               className={cn(
-                "h-12 px-8 flex items-center gap-3 text-[11px] font-black uppercase tracking-widest transition-all border-2",
+                "h-11 px-6 flex items-center gap-3 text-[13px] font-bold uppercase tracking-tight transition-all rounded-lg border",
                 isFilterOpen 
-                  ? "bg-slate-900 text-white border-slate-900 shadow-[4px_4px_0px_rgba(0,0,0,0.1)]" 
-                  : "bg-white border-slate-200 text-slate-900 hover:border-slate-900"
+                  ? "bg-[#007185] text-white border-[#007185] shadow-lg shadow-[#007185]/20" 
+                  : "bg-white border-gray-200 text-gray-700 hover:border-[#007185] hover:text-[#007185]"
               )}
             >
-              <SlidersHorizontal size={16} strokeWidth={3} />
-              {isFilterOpen ? "Close Config" : "System Filters"}
+              <Filter size={18} />
+              {isFilterOpen ? "Hide Filters" : "Show Filters"}
             </button>
 
             <div className="hidden lg:flex items-center gap-2">
               <AnimatePresence>
                 {category && (
-                  <button onClick={() => updateFilter('category', '')} className="h-9 px-4 bg-indigo-50 border-2 border-indigo-100 text-indigo-600 text-[9px] font-black uppercase flex items-center gap-2 hover:bg-indigo-100">
-                    {category} <X size={10} strokeWidth={3} />
+                  <button onClick={() => updateFilter('category', '')} className="h-9 px-4 bg-[#007185]/10 border border-[#007185]/20 text-[#007185] text-[11px] font-bold rounded-full flex items-center gap-2 hover:bg-[#007185]/20">
+                    {category} <X size={14} />
                   </button>
                 )}
                 {brand && (
-                  <button onClick={() => updateFilter('brand', '')} className="h-9 px-4 bg-slate-100 border-2 border-slate-200 text-slate-900 text-[9px] font-black uppercase flex items-center gap-2 hover:bg-slate-200">
-                    {brand} <X size={10} strokeWidth={3} />
+                  <button onClick={() => updateFilter('brand', '')} className="h-9 px-4 bg-gray-100 border border-gray-200 text-gray-700 text-[11px] font-bold rounded-full flex items-center gap-2 hover:bg-gray-200">
+                    {brand} <X size={14} />
                   </button>
                 )}
               </AnimatePresence>
@@ -191,20 +191,23 @@ export default function Shop() {
           </div>
 
           <div className="flex items-center gap-6">
-             <div className="flex items-center gap-4 bg-slate-50 px-5 py-2 border-2 border-slate-200">
-                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Sorting</span>
-                <select 
-                  value={sort} onChange={(e) => updateFilter('sort', e.target.value)}
-                  className="bg-transparent text-[11px] font-black uppercase focus:outline-none cursor-pointer text-slate-900"
-                >
-                  <option value="newest">Latest First</option>
-                  <option value="price_low">Price +</option>
-                  <option value="price_high">Price -</option>
-                  <option value="name_asc">A-Z</option>
-                </select>
+             <div className="flex items-center gap-3">
+                <span className="text-[12px] font-bold text-gray-400 uppercase tracking-widest">Sort By</span>
+                <div className="relative">
+                  <select 
+                    value={sort} onChange={(e) => updateFilter('sort', e.target.value)}
+                    className="bg-gray-50 border border-gray-200 rounded-lg px-4 py-2 text-[13px] font-bold text-gray-700 appearance-none pr-10 focus:outline-none focus:border-[#007185]"
+                  >
+                    <option value="newest">Latest First</option>
+                    <option value="price_low">Price: Low to High</option>
+                    <option value="price_high">Price: High to Low</option>
+                    <option value="name_asc">Alphabetical (A-Z)</option>
+                  </select>
+                  <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                </div>
              </div>
-             <div className="h-10 w-px bg-slate-200 hidden sm:block" />
-             <p className="text-[11px] font-black text-slate-900 uppercase tracking-[0.2em]">{total} Active Units</p>
+             <div className="h-8 w-px bg-gray-200 hidden sm:block" />
+             <p className="text-[13px] font-bold text-gray-900">{total} Products Found</p>
           </div>
         </div>
 
@@ -213,17 +216,17 @@ export default function Shop() {
           {isFilterOpen && (
             <motion.div 
               initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
-              className="bg-white overflow-hidden"
+              className="overflow-hidden"
             >
-              <div className="max-w-[1920px] mx-auto py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-slate-200 border-2 border-slate-900 mt-6">
+              <div className="py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 border-t border-gray-100 mt-4">
                 
-                <div className="bg-white p-8">
-                  <h4 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.4em] mb-8 border-b-2 border-slate-100 pb-2">Collections</h4>
-                  <div className="space-y-1 max-h-64 overflow-y-auto pr-4 custom-scrollbar">
+                <div className="space-y-6">
+                  <h4 className="text-[13px] font-bold text-gray-900 uppercase tracking-widest border-b border-gray-100 pb-3">Collections</h4>
+                  <div className="flex flex-col gap-1 max-h-64 overflow-y-auto pr-4 custom-scrollbar">
                     {categories.map(cat => (
                       <button 
                         key={cat.id} onClick={() => updateFilter('category', cat.slug)}
-                        className={cn("w-full text-left px-4 py-3 text-[11px] font-black uppercase transition-all", category === cat.slug ? "bg-slate-900 text-white" : "text-slate-400 hover:text-slate-900 hover:bg-slate-50")}
+                        className={cn("w-full text-left px-4 py-2.5 text-[13px] font-medium rounded-lg transition-all", category === cat.slug ? "bg-[#007185] text-white shadow-md" : "text-gray-500 hover:text-[#007185] hover:bg-[#007185]/5")}
                       >
                         {cat.name}
                       </button>
@@ -231,13 +234,13 @@ export default function Shop() {
                   </div>
                 </div>
 
-                <div className="bg-white p-8">
-                  <h4 className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.4em] mb-8 border-b-2 border-slate-100 pb-2">Partner Brands</h4>
+                <div className="space-y-6">
+                  <h4 className="text-[13px] font-bold text-gray-900 uppercase tracking-widest border-b border-gray-100 pb-3">Partner Brands</h4>
                   <div className="grid grid-cols-2 gap-2">
                     {brands.map(b => (
                       <button 
                         key={b.id} onClick={() => updateFilter('brand', brand === b.name ? '' : b.name)}
-                        className={cn("px-3 py-3 text-[10px] font-black uppercase border-2 transition-all", brand === b.name ? "bg-indigo-600 text-white border-indigo-600 shadow-[4px_4px_0px_rgba(0,0,0,0.1)]" : "bg-white border-slate-100 text-slate-400 hover:border-slate-900 hover:text-slate-900")}
+                        className={cn("px-3 py-3 text-[11px] font-bold uppercase border rounded-lg transition-all", brand === b.name ? "bg-[#007185] text-white border-[#007185] shadow-md" : "bg-white border-gray-200 text-gray-500 hover:border-[#007185] hover:text-[#007185]")}
                       >
                         {b.name}
                       </button>
@@ -245,18 +248,19 @@ export default function Shop() {
                   </div>
                 </div>
 
-                <div className="bg-slate-900 text-white p-10 lg:col-span-2 flex flex-col justify-between group">
-                   <div className="relative">
-                      <LayoutGrid size={40} className="text-indigo-500 mb-8 opacity-20 group-hover:rotate-90 transition-transform duration-700" />
-                      <h5 className="text-3xl font-black text-white uppercase tracking-tighter leading-tight mb-4">System Refinement<br/>Interface.</h5>
-                      <p className="text-slate-400 text-sm font-bold uppercase tracking-widest max-w-sm">Adjust parameters to narrow down precise hardware specifications from our authorized inventory.</p>
+                <div className="lg:col-span-2 bg-[#131921] rounded-2xl p-10 text-white flex flex-col justify-between group relative overflow-hidden">
+                   <div className="relative z-10 space-y-4">
+                      <LayoutGrid size={40} className="text-[#007185] mb-4 opacity-50 transition-transform duration-700 group-hover:rotate-90" />
+                      <h5 className="text-3xl font-bold tracking-tighter leading-tight">Advanced Refinement</h5>
+                      <p className="text-gray-400 text-sm font-medium leading-relaxed max-w-sm">Narrow down your selection by category and brand to find the perfect professional hardware for your needs.</p>
                    </div>
                    <button 
                      onClick={() => navigate('/shop')}
-                     className="mt-10 w-full py-5 bg-white text-slate-900 font-black text-[11px] uppercase tracking-[0.3em] hover:bg-indigo-600 hover:text-white transition-all border-2 border-white shadow-[8px_8px_0px_rgba(79,70,229,0.3)]"
+                     className="relative z-10 mt-10 w-full py-4 bg-white text-gray-900 font-bold rounded-xl hover:bg-[#007185] hover:text-white transition-all shadow-xl"
                    >
-                     Reset All Parameters
+                     Clear All Filters
                    </button>
+                   <div className="absolute top-0 right-0 w-64 h-64 bg-[#007185]/10 rounded-full blur-[80px] -z-0" />
                 </div>
               </div>
             </motion.div>
@@ -265,74 +269,78 @@ export default function Shop() {
       </div>
 
       {/* --- RESULTS GRID --- */}
-      <div className="max-w-[1920px] mx-auto px-4 md:px-10 lg:px-16 py-16 lg:py-24">
+      <div className="max-w-[1920px] mx-auto px-4 md:px-10 lg:px-16 py-12">
         {loading ? (
           <div className="flex flex-col items-center justify-center py-48">
-            <Loader2 className="animate-spin h-12 w-12 text-indigo-600 mb-6" />
-            <p className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-300">Accessing Database...</p>
+            <Loader2 className="animate-spin h-12 w-12 text-[#007185] mb-6" />
+            <p className="text-[12px] font-bold uppercase tracking-[0.3em] text-gray-300">Synchronizing Inventory...</p>
           </div>
         ) : products.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-48 text-center border-2 border-slate-900 bg-slate-50">
-            <div className="h-20 w-20 bg-white border-2 border-slate-900 flex items-center justify-center mb-8 shadow-[8px_8px_0px_rgba(0,0,0,0.1)]">
-               <X size={32} strokeWidth={3} className="text-slate-900" />
+          <div className="flex flex-col items-center justify-center py-32 text-center bg-white border border-gray-100 rounded-3xl shadow-sm px-6">
+            <div className="h-20 w-20 bg-gray-50 rounded-full flex items-center justify-center mb-8">
+               <X size={32} className="text-[#007185]" />
             </div>
-            <h2 className="text-4xl font-black text-slate-900 tracking-tighter uppercase mb-4">Zero Matches Found</h2>
-            <p className="text-slate-400 text-sm font-bold uppercase tracking-widest mb-12">System parameters returned no authorized matches.</p>
-            <button onClick={() => navigate('/shop')} className="px-12 py-5 bg-slate-900 text-white font-black text-[11px] uppercase tracking-widest border-2 border-slate-900 shadow-[8px_8px_0px_rgba(0,0,0,0.1)] hover:bg-indigo-600 hover:border-indigo-600 transition-all active:shadow-none">Clear All Refinements</button>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">No Matches Found</h2>
+            <p className="text-gray-500 font-medium max-w-sm mb-10">We couldn't find any authorized products matching your current refinements.</p>
+            <button onClick={() => navigate('/shop')} className="px-10 py-4 bg-[#007185] text-white font-bold rounded-xl hover:bg-[#005a6a] transition-all shadow-lg shadow-[#007185]/20">Clear All Search Filters</button>
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-px border border-slate-900 bg-slate-900">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
             {products.map((p, i) => (
               <motion.div 
-                key={p.id} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
-                className="group relative bg-white p-6 flex flex-col h-[520px] border border-transparent hover:border-slate-200 transition-all"
+                key={p.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                transition={{ delay: (i % 5) * 0.05 }}
+                className="group relative bg-white border border-gray-100 rounded-2xl p-5 flex flex-col h-full hover:shadow-2xl hover:border-[#007185]/20 transition-all duration-500"
               >
                 {/* Wishlist */}
                 <button 
                   onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleWishlist(p); }}
                   className={cn(
-                    "absolute top-4 right-4 z-20 h-10 w-10 border-2 transition-all duration-300 flex items-center justify-center",
-                    isInWishlist(p.id) 
-                      ? "bg-slate-900 text-white border-slate-900 shadow-[4px_4px_0px_rgba(0,0,0,0.1)]" 
-                      : "bg-white text-slate-200 border-slate-100 hover:border-slate-900 hover:text-red-500"
+                    "absolute top-4 right-4 z-20 h-10 w-10 bg-white rounded-full border border-gray-100 shadow-sm transition-all duration-300 flex items-center justify-center hover:scale-110",
+                    isInWishlist(p.id) ? "text-red-500 border-red-50" : "text-gray-300 hover:text-red-500"
                   )}
                 >
-                  <Heart size={18} fill={isInWishlist(p.id) ? "currentColor" : "none"} strokeWidth={2.5} />
+                  <Heart size={18} fill={isInWishlist(p.id) ? "currentColor" : "none"} strokeWidth={2} />
                 </button>
 
-                <Link to={`/product/${p.slug}`} className="flex-1 flex flex-col">
-                  <div className="relative h-[220px] mb-8 flex items-center justify-center p-4">
+                <Link to={`/product/${p.slug}`} className="flex-1 flex flex-col pt-4">
+                  <div className="relative h-[200px] mb-6 flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-gray-50 rounded-full scale-0 group-hover:scale-100 transition-transform duration-700 opacity-50" />
                     <img 
                       src={getImagePath(p.images)} alt={p.name}
-                      className="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-700"
+                      className="relative z-10 max-w-full max-h-full object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-110"
                       onError={(e) => { e.target.src = "https://via.placeholder.com/400x400?text=Not+Found"; }}
                     />
                   </div>
 
                   <div className="space-y-3">
-                    <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">{p.brand_name || 'AUTHENTIC'}</span>
-                    <h3 className="text-[16px] font-black text-slate-900 uppercase tracking-tight line-clamp-2 leading-tight group-hover:text-indigo-600 transition-colors">
+                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{p.brand_name || 'Authentic'}</span>
+                    <h3 className="text-[15px] font-bold text-gray-900 group-hover:text-[#007185] transition-colors line-clamp-2 leading-snug min-h-[40px]">
                       {p.name}
                     </h3>
-                    <div className="pt-4">
-                      <span className="text-2xl font-black text-slate-950 tracking-tighter">${p.price}</span>
+                    <div className="pt-2 flex items-center justify-between">
+                      <div className="flex items-start">
+                         <span className="text-[14px] mt-1 font-bold text-gray-900">$</span>
+                         <span className="text-[26px] font-black text-gray-900 leading-none tracking-tighter">{Math.floor(p.price)}</span>
+                         <span className="text-[14px] mt-1 font-bold text-gray-900">{(p.price % 1).toFixed(2).split('.')[1]}</span>
+                      </div>
                     </div>
                   </div>
                 </Link>
 
-                <div className="mt-8 border-t-2 border-slate-900 pt-6">
+                <div className="mt-6 pt-4 border-t border-gray-50">
                   <button 
                     onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleAddToCart(p); }}
                     disabled={addedItems[p.id]}
                     className={cn(
-                      "w-full h-12 border-2 flex items-center justify-center gap-3 font-black text-[10px] uppercase tracking-widest transition-all",
+                      "w-full h-11 rounded-xl flex items-center justify-center gap-2 font-bold text-[13px] transition-all transform active:scale-95 border",
                       addedItems[p.id] 
-                        ? "bg-emerald-500 text-white border-emerald-500 shadow-[4px_4px_0px_rgba(16,185,129,0.2)]" 
-                        : "bg-slate-900 text-white border-slate-900 hover:bg-indigo-600 hover:border-indigo-600 shadow-[4px_4px_0px_rgba(0,0,0,0.1)] active:shadow-none active:translate-x-1 active:translate-y-1"
+                        ? "bg-green-600 text-white border-green-600" 
+                        : "bg-white text-gray-900 border-gray-200 hover:bg-[#007185] hover:text-white hover:border-[#007185] shadow-sm hover:shadow-lg hover:shadow-[#007185]/20"
                     )}
                   >
-                    {addedItems[p.id] ? <Check size={16} strokeWidth={3} /> : <ShoppingBag size={16} />}
-                    {addedItems[p.id] ? "ADDED" : "BUY NOW"}
+                    {addedItems[p.id] ? <Check size={18} /> : <ShoppingBag size={18} />}
+                    {addedItems[p.id] ? "Added to Cart" : "Add to Cart"}
                   </button>
                 </div>
               </motion.div>

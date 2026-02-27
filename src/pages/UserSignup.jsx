@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { User, Mail, Lock, Phone, Eye, EyeOff, ArrowRight, Loader2, Activity } from 'lucide-react';
+import { User, Mail, Lock, Phone, Eye, EyeOff, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
 import API_BASE_URL from '../config';
 import { cn } from '../lib/utils';
 
@@ -27,111 +27,108 @@ export default function UserSignup() {
       const data = await response.json();
       
       if (data.status === 'success') {
-        alert('Account created successfully! Please sign in.');
         navigate('/login');
       } else {
-        setError(data.message || 'Registration protocol failed.');
+        setError(data.message || 'Registration failed. Please try again.');
       }
     } catch (err) {
-      setError('Connection timeout: Unable to reach terminal.');
+      setError('Connection error. Unable to create account.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white font-urbanist px-6 py-20 relative overflow-hidden">
-      
-      <div className="max-w-md w-full relative z-10">
+    <div className="min-h-screen flex items-center justify-center bg-[#fcfcfc] font-sans px-6 py-20">
+      <div className="max-w-md w-full">
         
-        {/* --- BRAND HEADER --- */}
-        <div className="text-center mb-12">
-          <Link to="/" className="inline-block mb-10 group">
-            <div className="flex items-center gap-4 border-2 border-slate-900 p-2 bg-white shadow-[6px_6px_0px_rgba(0,0,0,0.1)]">
-              <img src="/logo/MISTERPRINTER.png" alt="MISTERPRINTER" className="h-8 w-auto object-contain" />
-              <div className="h-8 w-[2px] bg-slate-900" />
-              <div className="flex flex-col items-start leading-none">
-                <span className="text-[7px] font-black text-slate-400 uppercase tracking-widest">A Subsidiary of</span>
-                <span className="text-[10px] font-black text-slate-900 uppercase tracking-tight mt-1">PrimeFix Solutions</span>
-              </div>
+        {/* --- BRANDING --- */}
+        <div className="text-center mb-10">
+          <Link to="/" className="inline-flex items-center gap-3 mb-8 group">
+            <img src="/logo/mr-logo.png" alt="MrPrinterPro" className="h-10 w-auto object-contain" />
+            <div className="h-8 w-px bg-gray-200" />
+            <div className="flex flex-col text-left leading-tight">
+              <span className="text-[8px] font-medium text-gray-400 uppercase tracking-[0.2em]">A Subsidiary of</span>
+              <span className="text-[12px] font-bold text-gray-900 tracking-wide">PrimeFix Solutions</span>
             </div>
           </Link>
-          <h1 className="text-4xl lg:text-5xl font-black text-slate-900 uppercase tracking-tighter mb-8 leading-none">Establish Account.</h1>
+          <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Create Account</h1>
+          <p className="text-gray-500 mt-2 font-medium">Join our professional hardware network.</p>
         </div>
 
-        {/* --- SIGNUP MODULE --- */}
-        <div className="bg-white border-2 border-slate-900 p-10 shadow-[12px_12px_0px_rgba(0,0,0,0.05)] relative">
-          <form onSubmit={handleSignup} className="space-y-6">
-            <AnimatePresence>
+        {/* --- SIGNUP CARD --- */}
+        <div className="bg-white border border-gray-200 p-8 md:p-10 rounded-[2rem] shadow-xl shadow-gray-200/50 relative overflow-hidden">
+          <form onSubmit={handleSignup} className="space-y-5">
+            <AnimatePresence mode="wait">
               {error && (
                 <motion.div 
-                  initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                  className="p-4 bg-red-50 text-red-600 text-[10px] font-black uppercase tracking-widest border-2 border-red-200 text-center flex items-center justify-center gap-2 shadow-[4px_4px_0px_rgba(220,38,38,0.1)]"
+                  initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
+                  className="p-4 bg-red-50 border border-red-100 rounded-xl flex items-center gap-3 text-red-600 text-sm font-medium"
                 >
-                  <Activity size={14} strokeWidth={3} /> {error}
+                  <AlertCircle size={18} /> {error}
                 </motion.div>
               )}
             </AnimatePresence>
 
             <div className="space-y-4">
-              <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Identification / Full Name</label>
+              <div className="space-y-1.5">
+                <label className="text-[13px] font-bold text-gray-700 ml-1">Full Name</label>
                 <div className="relative group">
-                  <div className="absolute left-0 top-0 bottom-0 w-12 flex items-center justify-center border-r-2 border-slate-200 group-focus-within:border-slate-900 transition-colors">
-                    <User className="text-slate-300 group-focus-within:text-indigo-600 transition-colors" size={18} strokeWidth={2.5} />
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#007185] transition-colors">
+                    <User size={20} />
                   </div>
                   <input 
-                    required type="text" placeholder="EX. ARTHUR DENT" value={formData.name}
+                    required type="text" placeholder="John Doe" value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    className="w-full h-14 pl-16 pr-6 bg-slate-50 border-2 border-slate-200 focus:bg-white focus:border-slate-900 outline-none text-xs font-bold uppercase transition-all"
+                    className="w-full h-12 pl-12 pr-6 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:border-[#007185] focus:ring-4 focus:ring-[#007185]/10 outline-none text-[15px] font-medium transition-all"
                   />
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Comm_Hub / Email</label>
+              <div className="space-y-1.5">
+                <label className="text-[13px] font-bold text-gray-700 ml-1">Email Address</label>
                 <div className="relative group">
-                  <div className="absolute left-0 top-0 bottom-0 w-12 flex items-center justify-center border-r-2 border-slate-200 group-focus-within:border-slate-900 transition-colors">
-                    <Mail className="text-slate-300 group-focus-within:text-indigo-600 transition-colors" size={18} strokeWidth={2.5} />
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#007185] transition-colors">
+                    <Mail size={20} />
                   </div>
                   <input 
-                    required type="email" placeholder="NAME@DOMAIN.COM" value={formData.email}
+                    required type="email" placeholder="john@company.com" value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    className="w-full h-14 pl-16 pr-6 bg-slate-50 border-2 border-slate-200 focus:bg-white focus:border-slate-900 outline-none text-xs font-bold uppercase transition-all"
+                    className="w-full h-12 pl-12 pr-6 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:border-[#007185] focus:ring-4 focus:ring-[#007185]/10 outline-none text-[15px] font-medium transition-all"
                   />
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Access_Code / Phone</label>
+              <div className="space-y-1.5">
+                <label className="text-[13px] font-bold text-gray-700 ml-1">Phone Number</label>
                 <div className="relative group">
-                  <div className="absolute left-0 top-0 bottom-0 w-12 flex items-center justify-center border-r-2 border-slate-200 group-focus-within:border-slate-900 transition-colors">
-                    <Phone className="text-slate-300 group-focus-within:text-indigo-600 transition-colors" size={18} strokeWidth={2.5} />
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#007185] transition-colors">
+                    <Phone size={20} />
                   </div>
                   <input 
-                    required type="tel" placeholder="+1 (000) 000-0000" value={formData.phone}
+                    required type="tel" placeholder="+1 (555) 000-0000" value={formData.phone}
                     onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    className="w-full h-14 pl-16 pr-6 bg-slate-50 border-2 border-slate-200 focus:bg-white focus:border-slate-900 outline-none text-xs font-bold uppercase transition-all"
+                    className="w-full h-12 pl-12 pr-6 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:border-[#007185] focus:ring-4 focus:ring-[#007185]/10 outline-none text-[15px] font-medium transition-all"
                   />
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Secure Key / Password</label>
+              <div className="space-y-1.5">
+                <label className="text-[13px] font-bold text-gray-700 ml-1">Secure Password</label>
                 <div className="relative group">
-                  <div className="absolute left-0 top-0 bottom-0 w-12 flex items-center justify-center border-r-2 border-slate-200 group-focus-within:border-slate-900 transition-colors">
-                    <Lock className="text-slate-300 group-focus-within:text-indigo-600 transition-colors" size={18} strokeWidth={2.5} />
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#007185] transition-colors">
+                    <Lock size={20} />
                   </div>
                   <input 
                     required type={showPassword ? "text" : "password"} placeholder="••••••••" value={formData.password}
                     onChange={(e) => setFormData({...formData, password: e.target.value})}
-                    className="w-full h-14 pl-16 pr-16 bg-slate-50 border-2 border-slate-200 focus:bg-white focus:border-slate-900 outline-none text-xs font-bold uppercase transition-all"
+                    className="w-full h-12 pl-12 pr-12 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:border-[#007185] focus:ring-4 focus:ring-[#007185]/10 outline-none text-[15px] font-medium transition-all"
                   />
                   <button 
                     type="button" onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-900 transition-colors"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                   >
-                    {showPassword ? <EyeOff size={18} strokeWidth={2.5} /> : <Eye size={18} strokeWidth={2.5} />}
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
                 </div>
               </div>
@@ -139,27 +136,26 @@ export default function UserSignup() {
 
             <button 
               disabled={loading}
-              className="w-full h-16 bg-slate-900 text-white flex items-center justify-center gap-4 text-[11px] font-black uppercase tracking-[0.4em] hover:bg-indigo-600 transition-all border-2 border-slate-900 shadow-[8px_8px_0px_rgba(0,0,0,0.1)] disabled:opacity-50 group active:shadow-none active:translate-x-1 active:translate-y-1"
+              className="w-full h-12 mt-4 bg-[#007185] hover:bg-[#005a6a] text-white flex items-center justify-center gap-3 text-[15px] font-bold rounded-xl transition-all shadow-lg shadow-[#007185]/20 disabled:opacity-70 active:scale-95 group"
             >
               {loading ? <Loader2 className="animate-spin" size={20} /> : (
                 <>
-                  INITIALIZE ACCOUNT
-                  <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                  Create Account
+                  <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                 </>
               )}
             </button>
           </form>
 
-          <div className="mt-8 pt-8 border-t-2 border-slate-100 text-center">
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-              Already Registered?
-              <Link to="/login" className="text-indigo-600 hover:underline ml-2">Sign In Here</Link>
+          <div className="mt-8 pt-6 border-t border-gray-100 text-center">
+            <p className="text-[14px] font-medium text-gray-500">
+              Already have an account?
+              <Link to="/login" className="text-[#007185] font-bold hover:underline ml-2">Sign in here</Link>
             </p>
           </div>
         </div>
-
-        <div className="mt-12" />
       </div>
     </div>
   );
 }
+

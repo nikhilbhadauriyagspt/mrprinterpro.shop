@@ -13,9 +13,10 @@ import {
   Plus,
   Minus,
   Share2,
-  Check
+  Check,
+  Star
 } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import API_BASE_URL from '../config';
 import { cn } from '../lib/utils';
 
@@ -88,19 +89,19 @@ export default function ProductDetail() {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-white">
-        <Loader2 className="animate-spin h-12 w-12 text-indigo-600 mb-6" />
-        <p className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-400">Retrieving Specs...</p>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-[#fcfcfc]">
+        <Loader2 className="animate-spin h-12 w-12 text-[#007185] mb-6" />
+        <p className="text-[12px] font-bold uppercase tracking-[0.3em] text-gray-300">Synchronizing Data...</p>
       </div>
     );
   }
 
   if (!product) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen text-center bg-slate-50 border-2 border-slate-900 m-4 lg:m-10">
-        <h2 className="text-4xl font-black text-slate-900 uppercase mb-4 tracking-tighter">Product Not Found</h2>
-        <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-8">The requested item is not available in the active repository.</p>
-        <Link to="/shop" className="px-10 py-4 bg-slate-900 text-white font-black text-[10px] uppercase tracking-[0.2em] border-2 border-slate-900 hover:bg-indigo-600 hover:border-indigo-600 transition-colors shadow-[6px_6px_0px_rgba(0,0,0,0.1)] active:shadow-none">Return to Gallery</Link>
+      <div className="flex flex-col items-center justify-center min-h-screen text-center bg-[#fcfcfc] px-6">
+        <h2 className="text-4xl font-bold text-gray-900 mb-4">Product Not Found</h2>
+        <p className="text-gray-500 font-medium mb-10 max-w-sm">The requested item is not available in our authorized repository.</p>
+        <Link to="/shop" className="px-10 py-4 bg-[#007185] text-white font-bold rounded-xl hover:bg-[#005a6a] transition-all shadow-lg active:scale-95">Return to Shop</Link>
       </div>
     );
   }
@@ -109,44 +110,44 @@ export default function ProductDetail() {
   const mainImage = images.length > 0 ? images[activeImage] : "https://via.placeholder.com/600x600?text=No+Image";
 
   return (
-    <div className="bg-white min-h-screen pt-20 lg:pt-24 font-urbanist">
+    <div className="bg-[#fcfcfc] min-h-screen font-sans pb-24">
       <SEO 
-        title={`${product.name} | MISTERPRINTER`} 
+        title={`${product.name} | MrPrinterPro`} 
         description={product.description?.substring(0, 160)}
       />
       
       {/* --- BREADCRUMBS --- */}
-      <div className="border-b-2 border-slate-900 bg-slate-50">
-        <div className="max-w-[1920px] mx-auto px-4 md:px-10 lg:px-16 py-4">
-          <nav className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-slate-400">
-            <Link to="/" className="hover:text-indigo-600 transition-colors">Home</Link>
-            <ChevronRight size={12} className="text-slate-300" />
-            <Link to="/shop" className="hover:text-indigo-600 transition-colors">Catalog</Link>
-            <ChevronRight size={12} className="text-slate-300" />
-            <span className="text-slate-900 truncate max-w-[200px]">{product.name}</span>
+      <div className="bg-white border-b border-gray-100">
+        <div className="max-w-[1500px] mx-auto px-4 md:px-10 lg:px-16 py-4">
+          <nav className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-widest text-gray-400">
+            <Link to="/" className="hover:text-[#007185] transition-colors">Home</Link>
+            <ChevronRight size={14} className="text-gray-200" />
+            <Link to="/shop" className="hover:text-[#007185] transition-colors">Catalog</Link>
+            <ChevronRight size={14} className="text-gray-200" />
+            <span className="text-[#007185] truncate max-w-[200px]">{product.name}</span>
           </nav>
         </div>
       </div>
 
-      <div className="max-w-[1920px] mx-auto px-4 md:px-10 lg:px-16 py-12 lg:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+      <div className="max-w-[1500px] mx-auto px-4 md:px-10 lg:px-16 py-12 lg:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           
           {/* --- IMAGE GALLERY --- */}
-          <div className="space-y-4">
-            <div className="aspect-square bg-slate-50 border-2 border-slate-900 flex items-center justify-center p-12 relative group shadow-[10px_10px_0px_rgba(0,0,0,0.05)]">
+          <div className="space-y-6">
+            <div className="aspect-square bg-white border border-gray-100 rounded-[2.5rem] flex items-center justify-center p-10 md:p-16 relative group shadow-2xl shadow-gray-200/50">
               <img 
                 src={mainImage} 
                 alt={product.name} 
-                className="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-700"
+                className="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-700"
               />
               <button 
                 onClick={() => toggleWishlist(product)}
                 className={cn(
-                  "absolute top-6 right-6 h-12 w-12 border-2 flex items-center justify-center transition-all shadow-[4px_4px_0px_rgba(0,0,0,0.1)] active:shadow-none",
-                  isInWishlist(product.id) ? "bg-slate-900 text-white border-slate-900" : "bg-white text-slate-300 border-slate-200 hover:border-slate-900 hover:text-red-500"
+                  "absolute top-8 right-8 h-12 w-12 bg-white rounded-full shadow-lg flex items-center justify-center transition-all active:scale-90",
+                  isInWishlist(product.id) ? "text-red-500" : "text-gray-300 hover:text-red-500"
                 )}
               >
-                <Heart size={20} fill={isInWishlist(product.id) ? "currentColor" : "none"} strokeWidth={2.5} />
+                <Heart size={24} fill={isInWishlist(product.id) ? "currentColor" : "none"} strokeWidth={2} />
               </button>
             </div>
 
@@ -157,8 +158,8 @@ export default function ProductDetail() {
                     key={idx}
                     onClick={() => setActiveImage(idx)}
                     className={cn(
-                      "h-24 w-24 border-2 flex-shrink-0 flex items-center justify-center p-4 transition-all bg-white",
-                      activeImage === idx ? "border-indigo-600 shadow-[4px_4px_0px_rgba(79,70,229,0.2)]" : "border-slate-200 hover:border-slate-900"
+                      "h-24 w-24 border-2 rounded-2xl flex-shrink-0 flex items-center justify-center p-4 transition-all bg-white overflow-hidden",
+                      activeImage === idx ? "border-[#007185] shadow-lg shadow-[#007185]/10" : "border-gray-100 hover:border-gray-300"
                     )}
                   >
                     <img src={img} alt="" className="max-w-full max-h-full object-contain mix-blend-multiply" />
@@ -169,28 +170,29 @@ export default function ProductDetail() {
           </div>
 
           {/* --- PRODUCT INFO --- */}
-          <div className="flex flex-col">
-            <div className="mb-10">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="inline-block px-4 py-1.5 bg-slate-900 text-white text-[9px] font-black uppercase tracking-[0.2em] border border-slate-900">
+          <div className="flex flex-col py-2">
+            <div className="mb-10 space-y-6">
+              <div className="flex items-center gap-3">
+                <span className="inline-block px-4 py-1 bg-[#007185]/10 text-[#007185] text-[11px] font-bold uppercase tracking-widest rounded-full border border-[#007185]/20">
                   {product.brand_name || 'AUTHENTIC'}
                 </span>
               </div>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-[0.9] tracking-tighter uppercase mb-8">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 leading-tight tracking-tighter">
                 {product.name}
               </h1>
 
               <div className="flex items-baseline gap-4 mb-10">
-                <span className="text-5xl lg:text-6xl font-black text-indigo-600 tracking-tighter">${product.price}</span>
+                <span className="text-5xl lg:text-6xl font-black text-[#007185] tracking-tighter">${product.price.toLocaleString()}</span>
                 {product.sale_price && (
-                  <span className="text-2xl font-black text-slate-300 line-through">${product.sale_price}</span>
+                  <span className="text-2xl font-bold text-gray-300 line-through">${product.sale_price.toLocaleString()}</span>
                 )}
               </div>
 
               {product.description && (
-                <div className="bg-slate-50 border-l-4 border-slate-900 p-6 mb-10">
-                  <p className="text-slate-600 font-bold leading-relaxed text-sm">
+                <div className="bg-white border border-gray-100 rounded-2xl p-8 shadow-sm">
+                  <h4 className="text-[13px] font-bold text-gray-900 uppercase tracking-widest mb-4">Specifications</h4>
+                  <p className="text-gray-600 font-medium leading-relaxed text-[15px] md:text-lg">
                     {product.description}
                   </p>
                 </div>
@@ -198,23 +200,23 @@ export default function ProductDetail() {
             </div>
 
             {/* --- ACTIONS --- */}
-            <div className="space-y-6 mt-auto border-t-2 border-slate-900 pt-10">
+            <div className="space-y-8 mt-auto pt-10 border-t border-gray-100">
               <div className="flex flex-col sm:flex-row gap-4">
                 
                 {/* Quantity Control */}
-                <div className="h-16 flex items-center bg-slate-50 border-2 border-slate-900 w-full sm:w-auto">
+                <div className="h-14 flex items-center bg-gray-50 rounded-xl border border-gray-200 overflow-hidden w-full sm:w-auto">
                   <button 
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="h-full w-16 flex items-center justify-center hover:bg-slate-200 transition-colors text-slate-900"
+                    className="h-full w-14 flex items-center justify-center hover:bg-gray-200 transition-colors text-gray-600"
                   >
-                    <Minus size={18} strokeWidth={2.5} />
+                    <Minus size={18} />
                   </button>
-                  <span className="text-lg font-black w-12 text-center text-slate-900">{quantity}</span>
+                  <span className="text-lg font-bold w-10 text-center text-gray-900 bg-white h-full flex items-center justify-center">{quantity}</span>
                   <button 
                     onClick={() => setQuantity(quantity + 1)}
-                    className="h-full w-16 flex items-center justify-center hover:bg-slate-200 transition-colors text-slate-900 border-l-2 border-slate-900"
+                    className="h-full w-14 flex items-center justify-center hover:bg-gray-200 transition-colors text-gray-600 border-l border-gray-200"
                   >
-                    <Plus size={18} strokeWidth={2.5} />
+                    <Plus size={18} />
                   </button>
                 </div>
 
@@ -223,37 +225,37 @@ export default function ProductDetail() {
                   onClick={handleAddToCart}
                   disabled={isAdded}
                   className={cn(
-                    "flex-1 h-16 flex items-center justify-center gap-4 text-[11px] font-black uppercase tracking-[0.3em] transition-all border-2 active:translate-x-1 active:translate-y-1 active:shadow-none",
+                    "flex-1 h-14 flex items-center justify-center gap-4 font-bold uppercase tracking-widest transition-all rounded-xl shadow-lg active:scale-95",
                     isAdded 
-                      ? "bg-emerald-500 text-white border-emerald-500 shadow-[6px_6px_0px_rgba(16,185,129,0.2)]" 
-                      : "bg-slate-900 text-white border-slate-900 hover:bg-indigo-600 hover:border-indigo-600 shadow-[6px_6px_0px_rgba(0,0,0,0.1)]"
+                      ? "bg-emerald-500 text-white shadow-emerald-100" 
+                      : "bg-[#007185] hover:bg-[#005a6a] text-white shadow-[#007185]/20"
                   )}
                 >
                   {isAdded ? (
-                    <><Check size={20} strokeWidth={3} /> CONFIRMED</>
+                    <><Check size={20} strokeWidth={3} /> Item Added</>
                   ) : (
-                    <><ShoppingBag size={20} strokeWidth={2.5} /> ADD TO SYSTEM</>
+                    <><ShoppingBag size={20} /> Add to Cart</>
                   )}
                 </button>
                 
-                <button className="h-16 w-16 bg-white text-slate-900 flex items-center justify-center border-2 border-slate-900 hover:bg-slate-900 hover:text-white transition-all shadow-[4px_4px_0px_rgba(0,0,0,0.1)] active:shadow-none">
-                  <Share2 size={20} strokeWidth={2.5} />
+                <button className="h-14 w-14 bg-white text-gray-400 flex items-center justify-center border border-gray-200 rounded-xl hover:text-[#007185] hover:border-[#007185] transition-all active:scale-90">
+                  <Share2 size={20} />
                 </button>
               </div>
 
-              {/* Guarantees */}
-              <div className="grid grid-cols-3 gap-px bg-slate-200 border-2 border-slate-900 mt-10">
-                <div className="flex flex-col items-center text-center p-6 bg-white group hover:bg-slate-50 transition-colors">
-                  <div className="text-slate-900 mb-4 group-hover:scale-110 transition-transform"><Truck size={24} strokeWidth={2} /></div>
-                  <span className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-500">Logistics</span>
+              {/* Guarantees Grid */}
+              <div className="grid grid-cols-3 gap-4">
+                <div className="flex flex-col items-center text-center p-5 bg-white border border-gray-100 rounded-2xl shadow-sm group hover:shadow-md transition-all">
+                  <Truck size={24} className="text-[#007185] mb-2" />
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">Free Shipping</span>
                 </div>
-                <div className="flex flex-col items-center text-center p-6 bg-white group hover:bg-slate-50 transition-colors">
-                  <div className="text-slate-900 mb-4 group-hover:scale-110 transition-transform"><ShieldCheck size={24} strokeWidth={2} /></div>
-                  <span className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-500">Protection</span>
+                <div className="flex flex-col items-center text-center p-5 bg-white border border-gray-100 rounded-2xl shadow-sm group hover:shadow-md transition-all">
+                  <ShieldCheck size={24} className="text-[#007185] mb-2" />
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">1Y Warranty</span>
                 </div>
-                <div className="flex flex-col items-center text-center p-6 bg-white group hover:bg-slate-50 transition-colors">
-                  <div className="text-slate-900 mb-4 group-hover:scale-110 transition-transform"><RefreshCcw size={24} strokeWidth={2} /></div>
-                  <span className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-500">Returns</span>
+                <div className="flex flex-col items-center text-center p-5 bg-white border border-gray-100 rounded-2xl shadow-sm group hover:shadow-md transition-all">
+                  <RefreshCcw size={24} className="text-[#007185] mb-2" />
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">14D Returns</span>
                 </div>
               </div>
             </div>
@@ -262,41 +264,41 @@ export default function ProductDetail() {
 
         {/* --- RELATED PRODUCTS --- */}
         {relatedProducts.length > 0 && (
-          <div className="mt-24 lg:mt-32 border-t-4 border-slate-900 pt-16 lg:pt-24">
+          <div className="mt-24 lg:mt-32 pt-16 border-t border-gray-100">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="h-1 w-6 bg-indigo-600" />
-                  <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em]">Similar Configurations</h2>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="h-1 w-8 bg-[#007185] rounded-full" />
+                  <span className="text-[12px] font-bold text-[#007185] uppercase tracking-widest">Recommended</span>
                 </div>
-                <h3 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tighter uppercase leading-[0.85]">
-                  Related <span className="text-indigo-600">Discoveries.</span>
+                <h3 className="text-3xl md:text-4xl font-black text-gray-900 tracking-tighter">
+                  Related <span className="text-[#007185]">Configurations</span>
                 </h3>
               </div>
-              <Link to="/shop" className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-900 border-b-2 border-slate-900 pb-1 hover:text-indigo-600 hover:border-indigo-600 transition-colors flex items-center gap-2">
-                Explore Full Catalog <ChevronRight size={14} />
+              <Link to="/shop" className="text-[14px] font-bold text-[#007185] hover:text-[#c45500] hover:underline transition-all">
+                View All Related Models
               </Link>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-px border-2 border-slate-900 bg-slate-900">
-              {relatedProducts.slice(0, 5).map((p) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+              {relatedProducts.slice(0, 5).map((p, i) => (
                 <Link 
                   to={`/product/${p.slug}`} 
                   key={p.id} 
-                  className="group bg-white p-6 flex flex-col h-full hover:bg-slate-50 transition-colors"
+                  className="group bg-white border border-gray-100 rounded-2xl p-5 flex flex-col h-full hover:shadow-xl transition-all duration-500"
                   onClick={() => window.scrollTo(0, 0)}
                 >
-                  <div className="aspect-square flex items-center justify-center p-4 mb-6">
+                  <div className="aspect-square flex items-center justify-center p-4 mb-6 bg-[#f9f9f9] rounded-xl overflow-hidden group-hover:bg-white transition-colors duration-500">
                     <img 
                       src={getImagePath(p.images)} 
                       alt={p.name}
                       className="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-700"
                     />
                   </div>
-                  <div className="mt-auto">
-                    <p className="text-[9px] font-black text-indigo-600 uppercase tracking-widest mb-2">{p.brand_name || 'AUTHENTIC'}</p>
-                    <h4 className="text-[13px] font-black text-slate-900 group-hover:text-indigo-600 transition-colors uppercase tracking-tight line-clamp-2 leading-tight mb-3">{p.name}</h4>
-                    <span className="text-xl font-black text-slate-950 tracking-tighter">${p.price}</span>
+                  <div className="flex flex-col flex-1">
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">{p.brand_name || 'AUTHENTIC'}</p>
+                    <h4 className="text-[15px] font-bold text-gray-900 group-hover:text-[#007185] transition-colors line-clamp-2 leading-tight mb-4">{p.name}</h4>
+                    <span className="text-xl font-black text-gray-900 mt-auto tracking-tighter">${p.price.toLocaleString()}</span>
                   </div>
                 </Link>
               ))}

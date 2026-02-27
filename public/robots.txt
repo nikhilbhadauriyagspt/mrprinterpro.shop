@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://misterprinter.shop/sitemap.xml
+Sitemap: https://mrprinterpro.shop/sitemap.xml
+

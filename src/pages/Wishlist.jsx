@@ -1,9 +1,10 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
 import { Link } from 'react-router-dom';
-import { Heart, Trash2, ArrowRight, ChevronLeft, Plus, ShieldCheck } from 'lucide-react';
+import { Heart, Trash2, ArrowRight, ChevronLeft, Plus, ShieldCheck, ShoppingBag } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../lib/utils';
+import SEO from '@/components/SEO';
 
 export default function Wishlist() {
   const { wishlist, toggleWishlist, addToCart, wishlistCount } = useCart();
@@ -18,15 +19,16 @@ export default function Wishlist() {
 
   if (wishlistCount === 0) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center pt-20 px-6 font-urbanist bg-white">
-        <div className="h-20 w-20 bg-slate-50 border-2 border-slate-200 flex items-center justify-center mb-8 shadow-[6px_6px_0px_rgba(0,0,0,0.05)]">
-          <Heart size={32} className="text-slate-300" strokeWidth={1.5} />
+      <div className="min-h-screen flex flex-col items-center justify-center px-6 font-sans bg-[#fcfcfc]">
+        <div className="h-24 w-24 bg-white rounded-full border border-gray-100 flex items-center justify-center mb-8 shadow-xl shadow-gray-200/50">
+          <Heart size={40} className="text-gray-200" strokeWidth={1.5} />
         </div>
-        <h2 className="text-4xl font-black text-slate-900 uppercase tracking-tighter mb-2">Wishlist Empty.</h2>
-        <p className="text-slate-400 font-black uppercase tracking-widest text-[10px] mb-12 italic">Your professional curation awaits its first entry.</p>
+        <h2 className="text-3xl font-bold text-gray-900 mb-2">Your wishlist is empty</h2>
+        <p className="text-gray-500 font-medium mb-10 max-w-sm text-center leading-relaxed">Save your favorite professional hardware here to keep track of them for future deployments.</p>
         <Link to="/shop">
-          <button className="h-14 px-12 bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.3em] flex items-center gap-4 hover:bg-indigo-600 border-2 border-slate-900 transition-all shadow-[6px_6px_0px_rgba(0,0,0,0.1)] active:shadow-none active:translate-x-1 active:translate-y-1">
-            INITIALIZE DISCOVERY <ArrowRight size={16} />
+          <button className="bg-[#007185] hover:bg-[#005a6a] text-white px-12 py-4 font-bold rounded-xl transition-all shadow-lg shadow-[#007185]/20 flex items-center gap-3 text-[16px] uppercase tracking-wider active:scale-95">
+            Discover Products
+            <ArrowRight size={20} />
           </button>
         </Link>
       </div>
@@ -34,50 +36,58 @@ export default function Wishlist() {
   }
 
   return (
-    <div className="min-h-screen bg-white pt-20 lg:pt-24 pb-20 font-urbanist">
+    <div className="min-h-screen bg-[#fcfcfc] pb-20 font-sans">
+      <SEO 
+        title="Saved Inventory | MrPrinterPro" 
+        description="View your curated list of favorite professional hardware."
+      />
       
       {/* --- PAGE HEADER --- */}
-      <div className="py-12 lg:py-16 px-4 md:px-10 lg:px-16 border-b-2 border-slate-900 bg-slate-50 mb-12">
-        <div className="max-w-[1920px] mx-auto">
+      <div className="bg-white py-12 md:py-16 px-4 md:px-10 lg:px-16 border-b border-gray-100 mb-12">
+        <div className="max-w-[1500px] mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
-            <div className="flex flex-col gap-3">
-              <h1 className="text-4xl lg:text-6xl font-black text-slate-900 tracking-tighter uppercase leading-[0.85]">
-                Saved<br/>
-                <span className="text-indigo-600">Inventory.</span>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="h-1 w-8 bg-[#007185] rounded-full" />
+                <span className="text-[12px] font-bold text-[#007185] uppercase tracking-widest">Saved Inventory</span>
+              </div>
+              <h1 className="text-4xl lg:text-6xl font-black text-gray-900 tracking-tighter leading-tight">
+                Your <span className="text-[#007185]">Wishlist</span>
               </h1>
             </div>
-            <div className="flex items-center gap-4 bg-white px-6 py-3 border-2 border-slate-900 shadow-[6px_6px_0px_rgba(0,0,0,0.1)]">
-               <div className="h-2 w-2 bg-red-500 animate-pulse" />
-               <p className="text-[11px] font-black uppercase tracking-widest text-slate-900">{wishlistCount} Units Marked</p>
+            <div className="flex items-center gap-4 bg-[#f9f9f9] px-6 py-3 rounded-2xl border border-gray-100 shadow-sm">
+               <div className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
+               <p className="text-[14px] font-bold text-gray-700">{wishlistCount} {wishlistCount === 1 ? 'Item' : 'Items'} Marked</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-[1920px] mx-auto px-4 md:px-10 lg:px-16">
+      <div className="max-w-[1500px] mx-auto px-4 md:px-10 lg:px-16">
         {/* --- GRID --- */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-px border border-slate-900 bg-slate-900 shadow-[12px_12px_0px_rgba(0,0,0,0.05)]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
           <AnimatePresence mode="popLayout">
-            {wishlist.map((p) => (
+            {wishlist.map((p, i) => (
               <motion.div 
                 key={p.id}
                 layout
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="group relative bg-white p-6 flex flex-col h-[480px] transition-colors hover:bg-slate-50"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ delay: (i % 5) * 0.05 }}
+                className="group relative bg-white border border-gray-100 rounded-2xl p-5 flex flex-col h-full hover:shadow-xl hover:border-[#007185]/20 transition-all duration-500"
               >
-                {/* Wishlist Removal */}
+                {/* Remove from Wishlist */}
                 <button 
                   onClick={(e) => { e.preventDefault(); toggleWishlist(p); }}
-                  className="absolute top-4 right-4 z-20 h-10 w-10 border-2 border-slate-900 bg-slate-900 text-white flex items-center justify-center transition-all hover:bg-red-600 hover:border-red-600 shadow-[4px_4px_0px_rgba(0,0,0,0.1)] active:shadow-none"
+                  className="absolute top-4 right-4 z-20 h-10 w-10 bg-red-50 text-red-500 rounded-full flex items-center justify-center transition-all hover:bg-red-500 hover:text-white shadow-sm active:scale-90"
                 >
-                  <Trash2 size={18} strokeWidth={2.5} />
+                  <Trash2 size={18} />
                 </button>
 
                 {/* Product Visual */}
                 <Link to={`/product/${p.slug}`} className="flex-1 flex flex-col pt-4">
-                  <div className="relative h-[200px] mb-8 flex items-center justify-center p-4">
+                  <div className="relative h-[200px] mb-6 flex items-center justify-center p-4">
                     <img 
                       src={getImagePath(p.images)} 
                       alt={p.name}
@@ -86,24 +96,24 @@ export default function Wishlist() {
                   </div>
 
                   <div className="space-y-3">
-                    <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">{p.brand_name || 'AUTHORIZED'}</span>
-                    <h3 className="text-[15px] font-black text-slate-900 uppercase tracking-tight line-clamp-2 leading-tight group-hover:text-indigo-600 transition-colors">
+                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{p.brand_name || 'AUTHORIZED'}</span>
+                    <h3 className="text-[15px] font-bold text-gray-900 group-hover:text-[#007185] transition-colors line-clamp-2 leading-tight min-h-[40px]">
                       {p.name}
                     </h3>
-                    <div className="pt-4">
-                      <span className="text-2xl font-black text-slate-950 tracking-tighter">${p.price.toLocaleString()}</span>
+                    <div className="pt-2">
+                      <span className="text-2xl font-black text-gray-900 tracking-tighter">${p.price.toLocaleString()}</span>
                     </div>
                   </div>
                 </Link>
 
-                {/* Actions */}
-                <div className="mt-8 border-t-2 border-slate-900 pt-6">
+                {/* Action */}
+                <div className="mt-6 pt-4 border-t border-gray-50">
                   <button 
                     onClick={() => addToCart(p)}
-                    className="w-full h-12 border-2 bg-slate-900 text-white border-slate-900 flex items-center justify-center gap-3 font-black text-[10px] uppercase tracking-widest hover:bg-indigo-600 hover:border-indigo-600 transition-all shadow-[4px_4px_0px_rgba(0,0,0,0.1)] active:shadow-none active:translate-x-1 active:translate-y-1"
+                    className="w-full h-11 bg-white text-gray-900 border border-gray-200 rounded-xl flex items-center justify-center gap-2 font-bold text-[13px] hover:bg-[#007185] hover:text-white hover:border-[#007185] transition-all shadow-sm active:scale-95"
                   >
-                    <Plus size={16} strokeWidth={3} />
-                    ADD TO SYSTEM
+                    <ShoppingBag size={18} />
+                    Add to Cart
                   </button>
                 </div>
               </motion.div>
@@ -112,18 +122,14 @@ export default function Wishlist() {
         </div>
 
         {/* --- FOOTER ACTION --- */}
-        <div className="mt-16 flex flex-col md:flex-row items-center justify-between gap-10">
-          <Link to="/shop">
-            <button className="h-12 px-8 border-2 border-slate-200 text-slate-400 hover:border-slate-900 hover:text-slate-900 font-black text-[10px] uppercase tracking-widest transition-all flex items-center gap-3 group">
-              <ChevronLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-              CONTINUE BROWSING
-            </button>
+        <div className="mt-16 flex flex-col md:flex-row items-center justify-between gap-10 border-t border-gray-100 pt-10">
+          <Link to="/shop" className="inline-flex items-center gap-2 text-gray-400 hover:text-[#007185] transition-all font-bold text-[14px] group">
+            <ChevronLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+            Continue Browsing Collections
           </Link>
-          <div className="flex items-center gap-10 opacity-40">
-             <div className="flex items-center gap-3">
-                <ShieldCheck size={18} className="text-slate-900" />
-                <span className="text-[10px] font-black text-slate-900 uppercase tracking-widest">Secured Node</span>
-             </div>
+          <div className="flex items-center gap-2 text-emerald-600">
+             <ShieldCheck size={18} />
+             <span className="text-[12px] font-bold uppercase tracking-widest">Verified Inventory Node</span>
           </div>
         </div>
       </div>

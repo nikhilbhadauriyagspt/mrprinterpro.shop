@@ -40,7 +40,7 @@ import UserManager from './pages/admin/UserManager';
 const ShopLayout = ({ children }) => (
   <div className="bg-white min-h-screen flex flex-col">
     <Header />
-    <main className="flex-grow pt-20 lg:pt-24">
+    <main className="flex-grow pt-[96px]">
       {children}
     </main>
     <Footer />

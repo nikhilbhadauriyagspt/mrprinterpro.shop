@@ -6,7 +6,7 @@ export default function ReturnPolicy() {
     <PolicyLayout
       title="Return Policy"
       subtitle="Read our return and refund policy for your purchases."
-      lastUpdated="February 23, 2026"
+      lastUpdated="February 28, 2026"
     >
       <h2>RETURNS</h2>
       <p>
@@ -15,16 +15,18 @@ export default function ReturnPolicy() {
 
       <h2>RETURN PROCESS</h2>
       <p>
-                 To return an item, please email customer service at <a href="mailto:info@misterprinter.shop">info@misterprinter.shop</a> to obtain an Return Merchandise Authorization (RMA) number.      </p>
-      <div className="bg-slate-50 p-8 rounded-3xl border border-slate-100 mt-6 not-prose">
-        <p className="font-medium text-slate-700 mb-4 italic">After receiving an RMA number, place the item securely in its original packaging and include your proof of purchase, then mail your return to the following address:</p>
-        <address className="not-italic text-slate-900 font-black leading-relaxed uppercase tracking-tighter">
-                     MISTERPRINTER <br />          Attn: Returns<br />
-          RMA #<br />
-                     10413 W Markham St<br />
-                     Little Rock, AR 72205<br />          United States
+        To return an item, please email customer service at <a href="mailto:info@mrprinterpro.shop">info@mrprinterpro.shop</a> to obtain authorization.
+      </p>
+      
+      <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm mt-6 not-prose">
+        <p className="font-medium text-gray-600 mb-4 italic">Place the item securely in its original packaging and include your proof of purchase, then mail your return to the following address:</p>
+        <address className="not-italic text-gray-900 font-bold leading-relaxed">
+          MrPrinterPro <br />
+          112 Water St Suite 202<br />
+          Boston, MA 02109<br />
+          United States
         </address>
-        <p className="mt-6 text-blue-600 font-black uppercase text-xs tracking-widest">
+        <p className="mt-6 text-[#007185] font-bold uppercase text-[11px] tracking-widest">
           Return shipping charges will be paid or reimbursed by us.
         </p>
       </div>
@@ -42,13 +44,12 @@ export default function ReturnPolicy() {
       <hr />
       <h2>QUESTIONS</h2>
       <p>If you have any questions concerning our return policy, please contact us at:</p>
-      <div className="bg-slate-50 p-8 rounded-3xl border border-slate-100 my-8 not-prose">
-        <address className="not-italic text-slate-700 font-bold leading-relaxed space-y-3">
-                     <p className="flex items-center gap-3 text-blue-600 font-black tracking-tight">info@misterprinter.shop</p>          <p className="text-[10px] text-slate-400 font-black uppercase tracking-[0.2em]">Contact support for immediate assistance</p>
+      <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm my-8 not-prose">
+        <address className="not-italic text-gray-700 font-medium leading-relaxed space-y-3">
+          <p className="flex items-center gap-3 text-[#007185] font-bold">info@mrprinterpro.shop</p>
+          <p className="text-[11px] text-gray-400 font-bold uppercase tracking-widest">Contact support for immediate assistance</p>
         </address>
       </div>
     </PolicyLayout>
   );
 }
-
-

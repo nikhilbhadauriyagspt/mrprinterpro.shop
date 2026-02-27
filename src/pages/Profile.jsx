@@ -117,7 +117,7 @@ export default function Profile() {
 
   return (
     <div className="bg-white min-h-screen pt-20 lg:pt-24 font-urbanist overflow-hidden">
-      <SEO title="Member Dashboard | MisterPrinter" />
+      <SEO title="Member Dashboard | MrPrinterPro" />
       
       {/* --- PAGE HEADER --- */}
       <div className="py-12 lg:py-16 px-4 md:px-10 lg:px-16 border-b-2 border-slate-900 bg-slate-50 mb-12">
@@ -352,3 +352,4 @@ export default function Profile() {
     </div>
   );
 }
+

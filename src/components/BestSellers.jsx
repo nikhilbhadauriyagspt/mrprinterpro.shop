@@ -1,5 +1,4 @@
-import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, Heart, Check, ShoppingBag, ArrowUpRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Heart, ShoppingCart } from "lucide-react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
 import { Link } from "react-router-dom";
@@ -30,112 +29,96 @@ export default function BestSellers({ products = [] }) {
   };
 
   return (
-    <section className="px-4 md:px-10 lg:px-16 py-16 lg:py-24 bg-white font-urbanist relative overflow-hidden border-b border-slate-200">
-      
-      <div className="max-w-[1920px] mx-auto relative z-10">
-        {/* --- SECTION HEADER --- */}
-        <div className="flex items-end justify-between mb-12 lg:mb-16">
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-2">
-              <div className="h-px w-8 bg-indigo-600" />
-              <span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.4em]">Popular Inventory</span>
-            </div>
-            <h2 className="text-3xl lg:text-5xl font-black text-slate-900 tracking-tighter uppercase leading-[0.85]">
-              Most Popular<br/>
-              <span className="text-indigo-600">Best Sellers.</span>
-            </h2>
-          </div>
-          
-          <div className="flex gap-2 mb-1">
-             <button className="bs-prev h-12 w-12 bg-white border border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white transition-all flex items-center justify-center group shadow-sm">
-                <ChevronLeft size={20} strokeWidth={2.5} />
-             </button>
-             <button className="bs-next h-12 w-12 bg-white border border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white transition-all flex items-center justify-center group shadow-sm">
-                <ChevronRight size={20} strokeWidth={2.5} />
-             </button>
-          </div>
+    <section className="py-10 bg-white font-sans relative overflow-hidden border-b border-gray-100">
+      <div className="w-full px-4 md:px-10 lg:px-16">
+        
+        {/* --- FULL WIDTH SECTION HEADER --- */}
+        <div className="flex items-center justify-between mb-8 border-b border-gray-100 pb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-[#111] tracking-tighter">
+            Most Popular <span className="text-[#007185]">Printers</span>
+          </h2>
+          <Link to="/shop" className="text-[15px] font-bold text-[#007185] hover:text-[#c45500] hover:underline transition-colors">
+            View Entire Collection
+          </Link>
         </div>
 
-        {/* --- PRODUCT CAROUSEL --- */}
-        <div className="relative">
+        {/* --- FULL WIDTH PRODUCT CAROUSEL --- */}
+        <div className="relative group">
           <Swiper
             modules={[Navigation, Autoplay]}
-            spaceBetween={0}
-            slidesPerView={1.2}
+            spaceBetween={20}
+            slidesPerView={1.5}
             autoplay={{ delay: 5000, disableOnInteraction: false }}
-            navigation={{ prevEl: '.bs-prev', nextEl: '.bs-next' }}
+            navigation={{ prevEl: '.bs-prev-btn', nextEl: '.bs-next-btn' }}
             breakpoints={{
-              640: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
-              1440: { slidesPerView: 4 },
-              1600: { slidesPerView: 5 },
+              640: { slidesPerView: 3 },
+              1024: { slidesPerView: 4 },
+              1280: { slidesPerView: 5 },
+              1536: { slidesPerView: 6 },
             }}
-            className="border-2 border-slate-900 !overflow-visible lg:!overflow-hidden"
+            className="!static"
           >
             {products.slice(0, 15).map((p) => (
                 <SwiperSlide key={p.id}>
-                  <div className="relative bg-white border-r-2 border-slate-900 h-[480px] flex flex-col group overflow-hidden transition-colors hover:bg-slate-50">
+                  <div className="flex flex-col h-full bg-white group/card p-2">
                     
                     {/* Image Area */}
-                    <div className="relative h-[240px] flex items-center justify-center p-8">
-                      {/* Wishlist Button - Square */}
-                      <button 
-                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleWishlist(p); }}
-                        className={cn(
-                          "absolute top-4 right-4 z-20 h-10 w-10 border-2 transition-all duration-300 flex items-center justify-center",
-                          isInWishlist(p.id) 
-                            ? "bg-slate-900 text-white border-slate-900" 
-                            : "bg-white text-slate-300 border-slate-100 hover:border-slate-900 hover:text-red-500"
-                        )}
-                      >
-                        <Heart size={18} fill={isInWishlist(p.id) ? "currentColor" : "none"} strokeWidth={2.5} />
-                      </button>
-
+                    <Link to={`/product/${p.slug}`} className="relative h-[220px] flex items-center justify-center p-4 bg-[#f9f9f9] rounded-xl mb-4 overflow-hidden border border-transparent group-hover/card:border-gray-200 transition-all">
                       <img 
                         src={getImagePath(p.images)} 
-                        className="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-700" 
+                        className="max-w-full max-h-full object-contain mix-blend-multiply group-hover/card:scale-105 transition-transform duration-500" 
                         alt={p.name} 
                       />
-                    </div>
+                      
+                      {/* Quick Wishlist */}
+                      <button 
+                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleWishlist(p); }}
+                        className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-md opacity-0 group-hover/card:opacity-100 transition-opacity"
+                      >
+                        <Heart size={18} className={cn(isInWishlist(p.id) ? "text-red-500 fill-red-500" : "text-gray-400")} />
+                      </button>
+                    </Link>
 
                     {/* Content Area */}
-                    <div className="flex-1 p-8 border-t-2 border-slate-900 flex flex-col bg-white">
-                      <div className="flex items-center justify-between mb-3">
-                         <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">{p.brand_name || 'Premium'}</span>
-                      </div>
-
-                      <Link to={`/product/${p.slug}`} className="flex-1">
-                        <h3 className="font-black text-slate-900 text-[16px] uppercase tracking-tight line-clamp-2 leading-tight group-hover:text-indigo-600 transition-colors">
+                    <div className="flex flex-col px-1">
+                      <Link to={`/product/${p.slug}`} className="mb-2">
+                        <h3 className="text-[14px] font-medium text-gray-800 group-hover/card:text-[#007185] line-clamp-2 leading-tight h-10 transition-colors">
                           {p.name}
                         </h3>
                       </Link>
 
-                      <div className="mt-6 flex items-center justify-between">
-                        <div className="flex flex-col">
-                           <span className="text-2xl font-black text-slate-900 tracking-tighter">${p.price}</span>
-                        </div>
-
-                        <button 
-                          onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleAddToCart(p); }}
-                          disabled={addedItems[p.id]}
-                          className={cn(
-                            "h-12 w-12 border-2 transition-all duration-500 flex items-center justify-center",
-                            addedItems[p.id] 
-                              ? "bg-emerald-500 text-white border-emerald-500 shadow-[4px_4px_0px_rgba(16,185,129,0.2)]" 
-                              : "bg-slate-900 text-white border-slate-900 hover:bg-indigo-600 hover:border-indigo-600 shadow-[4px_4px_0px_rgba(0,0,0,0.1)] active:shadow-none active:translate-x-1 active:translate-y-1"
-                          )}
-                        >
-                          {addedItems[p.id] ? <Check size={20} strokeWidth={3} /> : <ShoppingBag size={20} />}
-                        </button>
+                      <div className="flex flex-col gap-1">
+                         <div className="flex items-start text-[#111]">
+                            <span className="text-[13px] mt-1 font-medium">$</span>
+                            <span className="text-[22px] font-semibold leading-none">{Math.floor(p.price)}</span>
+                            <span className="text-[13px] mt-1 font-medium">{(p.price % 1).toFixed(2).split('.')[1]}</span>
+                         </div>
                       </div>
-                    </div>
 
-                    {/* Link Overlay */}
-                    <Link to={`/product/${p.slug}`} className="absolute inset-0 z-0" />
+                      <button 
+                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleAddToCart(p); }}
+                        className={cn(
+                          "mt-4 w-full py-2 rounded-lg text-[13px] font-medium transition-all transform active:scale-95 border",
+                          addedItems[p.id] 
+                            ? "bg-green-600 text-white border-green-600" 
+                            : "bg-[#007185] hover:bg-[#005a6a] text-white border-[#008ba0]"
+                        )}
+                      >
+                        {addedItems[p.id] ? "Added" : "Add to Cart"}
+                      </button>
+                    </div>
                   </div>
                 </SwiperSlide>
               ))}
           </Swiper>
+
+          {/* Floating Navigation Arrows - Clean Style */}
+          <button className="bs-prev-btn absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-20 h-12 w-12 bg-white border border-gray-200 shadow-xl rounded-full flex items-center justify-center hover:bg-gray-50 transition-all opacity-0 group-hover:opacity-100">
+            <ChevronLeft size={28} className="text-gray-700" />
+          </button>
+          <button className="bs-next-btn absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-20 h-12 w-12 bg-white border border-gray-200 shadow-xl rounded-full flex items-center justify-center hover:bg-gray-50 transition-all opacity-0 group-hover:opacity-100">
+            <ChevronRight size={28} className="text-gray-700" />
+          </button>
         </div>
       </div>
     </section>

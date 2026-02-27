@@ -85,7 +85,7 @@ export default function Home() {
     <div className="bg-white font-snpro overflow-x-hidden text-slate-900">
       <SEO 
         title="Authorized HP Partner | Premium Printers & Hardware" 
-        description="Premium destination for authorized HP printers, precision tech, and essential accessories. Delivering excellence in tech solutions across the USA."
+        description="Premium destination for authorized HP printers, precision systems, and essential accessories. Delivering excellence in professional solutions across the USA."
       />
       
       <Hero />
@@ -98,55 +98,65 @@ export default function Home() {
 
       <QuickPicks products={data.all} />
 
-      {/* 13. EXPERT CONSULTING - INDUSTRIAL REDESIGN */}
-      <section className="py-20 lg:py-32 bg-white font-urbanist border-b border-slate-200">
+      {/* --- BUSINESS PRODUCTIVITY SHOWCASE: NEW DESIGN --- */}
+      <section className="py-20 bg-white font-sans border-b border-gray-100">
         <div className="max-w-[1920px] mx-auto px-4 md:px-10 lg:px-16">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
+          
+          {/* Header Area */}
+          <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+            <h2 className="text-3xl md:text-5xl font-black text-[#111] tracking-tighter">
+              Powering <span className="text-[#007185]">Enterprise Productivity</span>
+            </h2>
+            <p className="text-gray-500 text-lg font-medium">
+              Scalable printing solutions and dedicated support designed to keep your business moving forward without interruption.
+            </p>
+          </div>
+
+          {/* New 3-Column Solution Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             
-            {/* Left Content */}
-            <div className="lg:col-span-5">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="h-px w-8 bg-indigo-600" />
-                <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em]">Strategic Consultation</span>
+            {/* Solution 1: Managed Print */}
+            <div className="relative group overflow-hidden rounded-2xl bg-[#f9f9f9] border border-gray-100 p-10 flex flex-col items-center text-center transition-all hover:shadow-2xl hover:bg-white hover:border-[#007185]/20">
+              <div className="h-20 w-20 rounded-full bg-white shadow-md flex items-center justify-center mb-8 text-[#007185] group-hover:scale-110 group-hover:bg-[#007185] group-hover:text-white transition-all duration-500">
+                <RefreshCw size={32} />
               </div>
-              
-              <h2 className="text-4xl md:text-5xl lg:text-7xl font-black text-slate-900 tracking-tighter uppercase leading-[0.85] mb-10">
-                Professional<br/>
-                <span className="text-indigo-600 font-black">Workflow Solutions.</span>
-              </h2>
-              
-              <p className="text-slate-500 text-base md:text-lg font-bold leading-relaxed mb-12 max-w-lg border-l-4 border-slate-900 pl-8">
-                Optimise your operational infrastructure with expert-led strategic planning. Our technicians provide tailored solutions to ensure peak efficiency across your entire enterprise.
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Managed Print Services</h3>
+              <p className="text-gray-500 font-medium leading-relaxed mb-8">
+                Automated ink replenishment and fleet monitoring to ensure you never run out of critical supplies.
               </p>
-              
-              <Link to="/contact">
-                <button className="h-16 px-12 bg-slate-900 text-white font-black text-[11px] uppercase tracking-[0.3em] transition-all hover:bg-indigo-600 flex items-center gap-6 shadow-[6px_6px_0px_rgba(0,0,0,0.1)] active:shadow-none active:translate-x-1 active:translate-y-1 border-2 border-slate-900 group">
-                  GET EXPERT ADVICE
-                  <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
-                </button>
+              <Link to="/contact" className="mt-auto text-[#007185] font-bold flex items-center gap-2 hover:gap-3 transition-all">
+                Learn More <ArrowRight size={18} />
               </Link>
             </div>
 
-            {/* Right Grid - Square Industrial Cards */}
-            <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-px bg-slate-200 border-2 border-slate-900">
-              {[
-                { icon: <Shield size={24} />, title: "Full Protection", desc: "Enterprise-grade warranty protocols for all hardware units." },
-                { icon: <Wrench size={24} />, title: "Rapid Deployment", desc: "Precision configuration and hardware setup by certified technicians." },
-                { icon: <Zap size={24} />, title: "Priority Support", desc: "Instant response channels for critical operational requirements." },
-                { icon: <Layers size={24} />, title: "System Scaling", desc: "Future-ready infrastructure design for growing organizations." }
-              ].map((item, i) => (
-                <div 
-                  key={i}
-                  className="p-10 bg-white group hover:bg-slate-50 transition-all duration-500"
-                >
-                   <div className="h-14 w-14 border-2 border-slate-900 text-slate-900 flex items-center justify-center mb-8 group-hover:bg-indigo-600 group-hover:text-white group-hover:border-indigo-600 transition-all duration-500">
-                      {item.icon}
-                   </div>
-                   <h4 className="text-xl font-black text-slate-900 uppercase tracking-tight mb-3">{item.title}</h4>
-                   <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest leading-relaxed group-hover:text-slate-600">{item.desc}</p>
-                </div>
-              ))}
+            {/* Solution 2: System Setup */}
+            <div className="relative group overflow-hidden rounded-2xl bg-[#f9f9f9] border border-gray-100 p-10 flex flex-col items-center text-center transition-all hover:shadow-2xl hover:bg-white hover:border-[#007185]/20">
+              <div className="h-20 w-20 rounded-full bg-white shadow-md flex items-center justify-center mb-8 text-[#007185] group-hover:scale-110 group-hover:bg-[#007185] group-hover:text-white transition-all duration-500">
+                <Wrench size={32} />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Expert Configuration</h3>
+              <p className="text-gray-500 font-medium leading-relaxed mb-8">
+                Professional hardware setup and network integration by our team of certified specialists.
+              </p>
+              <Link to="/contact" className="mt-auto text-[#007185] font-bold flex items-center gap-2 hover:gap-3 transition-all">
+                Book a Setup <ArrowRight size={18} />
+              </Link>
             </div>
+
+            {/* Solution 3: Lifetime Support */}
+            <div className="relative group overflow-hidden rounded-2xl bg-[#f9f9f9] border border-gray-100 p-10 flex flex-col items-center text-center transition-all hover:shadow-2xl hover:bg-white hover:border-[#007185]/20">
+              <div className="h-20 w-20 rounded-full bg-white shadow-md flex items-center justify-center mb-8 text-[#007185] group-hover:scale-110 group-hover:bg-[#007185] group-hover:text-white transition-all duration-500">
+                <Shield size={32} />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Extended Protection</h3>
+              <p className="text-gray-500 font-medium leading-relaxed mb-8">
+                Comprehensive warranty plans and priority maintenance support for all enterprise-level hardware units.
+              </p>
+              <Link to="/contact" className="mt-auto text-[#007185] font-bold flex items-center gap-2 hover:gap-3 transition-all">
+                Explore Plans <ArrowRight size={18} />
+              </Link>
+            </div>
+
           </div>
         </div>
       </section>
@@ -154,3 +164,4 @@ export default function Home() {
     </div>
   );
 }
+

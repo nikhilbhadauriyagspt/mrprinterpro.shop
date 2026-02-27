@@ -1,5 +1,5 @@
 {
-  "name": "misterprinter.shop",
+  "name": "mrprinterpro.shop",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -50,3 +50,4 @@
     "@rollup/rollup-linux-x64-musl": "^4.59.0"
   }
 }
+

@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import SEO from '@/components/SEO';
-import { HelpCircle, Search, Plus, Minus, Mail, ShieldCheck, ChevronRight, MapPin } from 'lucide-react';
+import { HelpCircle, Search, Plus, Mail, ChevronRight, MapPin, ShieldCheck, X } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 const faqData = [
   {
     category: "Orders & Purchasing",
     questions: [
-      { q: "How do I place an order on MISTERPRINTER?", a: "Simply browse our products, add your items to the cart, and complete the checkout using your preferred payment method." },
+      { q: "How do I place an order on MrPrinterPro?", a: "Simply browse our products, add your items to the cart, and complete the checkout using your preferred payment method." },
       { q: "Do I need an account to purchase?", a: "No. You can checkout as a guest. However, creating an account helps you track orders and access your purchase history." },
       { q: "How can I check my order status?", a: "Log into your account and visit My Orders to view real-time updates. You will also receive email notifications." },
       { q: "Can I modify or cancel my order after placing it?", a: "Orders can be modified or canceled before shipping. Once the item is dispatched, cancellations aren’t possible." },
       { q: "What payment methods do you accept?", a: "We accept major credit/debit cards (Visa, Mastercard), PayPal, and other secure digital payment options." },
-      { q: "Is shopping on MISTERPRINTER secure?", a: "Yes. All transactions are encrypted and processed through verified, PCI-compliant payment networks including PayPal Secure." }
+      { q: "Is shopping on MrPrinterPro secure?", a: "Yes. All transactions are encrypted and processed through verified, PCI-compliant payment networks including PayPal Secure." }
     ]
   },
   {
@@ -59,112 +59,110 @@ export default function FAQ() {
   })).filter(cat => cat.questions.length > 0);
 
   return (
-    <div className="bg-white min-h-screen pt-20 lg:pt-24 font-urbanist overflow-hidden">
+    <div className="bg-[#fcfcfc] min-h-screen font-sans">
       <SEO 
-        title="FAQ Support Hub | MISTERPRINTER" 
-        description="Find answers to common questions about orders, shipping, products, and technical support."
+        title="FAQ Support Hub | MrPrinterPro" 
+        description="Find answers to common questions about orders, shipping, products, and professional support."
       />
       
-      {/* --- PAGE HEADER --- */}
-      <div className="py-12 lg:py-20 px-4 md:px-10 lg:px-16 border-b-2 border-slate-900 bg-slate-50">
-        <div className="max-w-[1920px] mx-auto">
-          <div className="flex flex-col gap-6">
-            <div className="flex items-center gap-3">
-              <div className="h-1 w-8 bg-indigo-600" />
-              <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em]">Support Protocol</span>
-            </div>
-            
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
-              <h1 className="text-4xl lg:text-7xl font-black text-slate-900 tracking-tighter uppercase leading-[0.85]">
-                Knowledge<br/>
-                <span className="text-indigo-600">Database.</span>
+      {/* --- CLEAN WHITE PAGE HEADER --- */}
+      <div className="bg-white py-16 md:py-24 px-4 md:px-10 lg:px-16 border-b border-gray-100 relative overflow-hidden">
+        <div className="max-w-[1500px] mx-auto relative z-10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-10">
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="h-1 w-8 bg-[#007185] rounded-full" />
+                <span className="text-[12px] font-bold text-[#007185] uppercase tracking-widest">Support Hub</span>
+              </div>
+              <h1 className="text-4xl md:text-6xl font-black text-gray-900 tracking-tighter leading-tight">
+                Knowledge <span className="text-[#007185]">Center</span>
               </h1>
+              <p className="text-gray-500 text-lg md:text-xl font-medium max-w-xl leading-relaxed">
+                Find expert answers to your questions about professional hardware, shipping, and enterprise support.
+              </p>
+            </div>
 
-              <div className="w-full max-w-xl relative group">
-                <div className="flex border-2 border-slate-900 shadow-[6px_6px_0px_rgba(0,0,0,0.1)]">
-                  <div className="h-14 w-14 bg-white flex items-center justify-center border-r-2 border-slate-900 shrink-0">
-                    <Search size={20} className="text-slate-400" />
-                  </div>
-                  <input 
-                    type="text" 
-                    placeholder="SEARCH FOR SOLUTIONS..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="flex-1 h-14 px-6 text-sm bg-white focus:outline-none font-bold uppercase tracking-widest placeholder:text-slate-300"
-                  />
+            <div className="w-full max-w-xl">
+              <div className="flex bg-gray-50 border border-gray-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-[#007185]/20 focus-within:border-[#007185] transition-all">
+                <div className="h-14 w-14 flex items-center justify-center text-gray-400">
+                  <Search size={22} />
                 </div>
+                <input 
+                  type="text" 
+                  placeholder="Search for solutions..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="flex-1 h-14 bg-transparent outline-none text-[15px] font-medium text-gray-900 placeholder:text-gray-400"
+                />
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-[1920px] mx-auto px-4 md:px-10 lg:px-16 py-16 lg:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+      <div className="max-w-[1500px] mx-auto px-4 md:px-10 lg:px-16 py-16 lg:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
           
-          {/* --- SIDEBAR --- */}
-          <div className="lg:col-span-4 space-y-6">
-            <div className="bg-white border-2 border-slate-900 p-2 shadow-[8px_8px_0px_rgba(0,0,0,0.05)]">
-              <div className="p-4 border-b-2 border-slate-100 mb-2">
-                <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Browse Modules</span>
+          {/* --- SIDEBAR NAVIGATION --- */}
+          <div className="lg:col-span-4 space-y-8">
+            <div className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
+              <div className="p-4 border-b border-gray-50 mb-2">
+                <span className="text-[13px] font-bold text-gray-900 uppercase tracking-widest">Categories</span>
               </div>
-              <div className="space-y-1 max-h-[400px] overflow-y-auto custom-scrollbar pr-2">
+              <div className="space-y-1">
                 {faqData.map((cat) => (
                   <button
                     key={cat.category}
                     onClick={() => { setActiveCategory(cat.category); setOpenIndex(0); }}
                     className={cn(
-                      "w-full text-left px-6 py-4 transition-all uppercase text-[11px] font-black tracking-widest flex items-center justify-between group",
+                      "w-full text-left px-5 py-4 rounded-xl transition-all font-bold text-[14px] flex items-center justify-between group",
                       activeCategory === cat.category 
-                      ? "bg-slate-900 text-white" 
-                      : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
+                      ? "bg-[#007185] text-white shadow-lg shadow-[#007185]/20" 
+                      : "text-gray-500 hover:bg-gray-50 hover:text-[#007185]"
                     )}
                   >
                     {cat.category}
-                    <ChevronRight size={14} className={cn("transition-transform", activeCategory === cat.category ? "translate-x-0" : "-translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0")} />
+                    <ChevronRight size={16} className={cn("transition-transform", activeCategory === cat.category ? "translate-x-0" : "-translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0")} />
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Address Box */}
-            <div className="p-10 bg-white border-2 border-slate-900 shadow-[8px_8px_0px_rgba(0,0,0,0.05)] group transition-all">
-              <div className="h-12 w-12 bg-slate-900 text-white flex items-center justify-center mb-10 group-hover:bg-indigo-600 transition-all">
-                <MapPin size={20} strokeWidth={2.5} />
-              </div>
-              <p className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.3em] mb-2">Office Address</p>
-              <h4 className="text-xl font-black text-slate-900 uppercase tracking-tight leading-tight">10413 W Markham St, Little Rock, AR 72205, USA</h4>
-            </div>
-
-            {/* Support Box */}
-            <div className="p-10 bg-slate-900 text-white border-2 border-slate-900 shadow-[8px_8px_0px_rgba(79,70,229,0.2)] group relative overflow-hidden">
+            {/* Direct Support Card */}
+            <div className="bg-[#131921] p-8 rounded-2xl text-white shadow-xl relative overflow-hidden group">
               <div className="relative z-10 space-y-6">
                 <div className="flex items-center gap-3">
-                  <div className="h-1 w-6 bg-indigo-400" />
-                  <h4 className="text-[10px] font-black text-indigo-400 uppercase tracking-[0.4em]">Direct Support</h4>
+                  <div className="h-1 w-6 bg-[#007185]" />
+                  <h4 className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">Need more help?</h4>
                 </div>
-                <p className="text-xl font-black lowercase tracking-tight leading-tight">info@misterprinter.shop</p>
-                <a href="mailto:info@misterprinter.shop" className="flex items-center gap-4 text-[11px] font-black hover:text-indigo-400 transition-colors uppercase tracking-widest pt-6 border-t border-white/10">
-                  <div className="h-10 w-10 bg-white text-slate-900 flex items-center justify-center border-2 border-white"><Mail size={18} /></div>
-                  Launch Inquiry
+                <div className="space-y-2">
+                  <p className="text-[14px] text-gray-400 font-medium">Email our specialists at:</p>
+                  <p className="text-xl font-bold text-white">info@mrprinterpro.shop</p>
+                </div>
+                <a href="mailto:info@mrprinterpro.shop" className="inline-flex items-center gap-3 bg-[#007185] hover:bg-[#005a6a] text-white px-6 py-3 rounded-xl font-bold transition-all shadow-lg active:scale-95 text-[14px]">
+                  <Mail size={18} />
+                  Contact Support
                 </a>
               </div>
-              <HelpCircle size={150} className="absolute -bottom-10 -right-10 text-white/5 group-hover:rotate-12 transition-transform duration-700" />
+              <HelpCircle size={180} className="absolute -bottom-10 -right-10 text-white/5 group-hover:scale-110 transition-transform duration-1000" />
             </div>
           </div>
 
-          {/* --- ACCORDION --- */}
+          {/* --- ACCORDION CONTENT --- */}
           <div className="lg:col-span-8">
             <AnimatePresence mode="wait">
               <motion.div
-                key={activeCategory} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }} className="space-y-6"
+                key={activeCategory} 
+                initial={{ opacity: 0, x: 20 }} 
+                animate={{ opacity: 1, x: 0 }} 
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.4 }} 
+                className="space-y-6"
               >
-                <div className="flex items-center justify-between mb-10 border-b-4 border-slate-100 pb-6 px-2">
-                   <h3 className="text-3xl lg:text-4xl font-black text-slate-900 uppercase tracking-tighter">
+                <div className="flex items-center justify-between mb-8 border-b border-gray-100 pb-6 px-2">
+                   <h2 className="text-3xl font-bold text-gray-900">
                      {activeCategory}
-                   </h3>
-                   <div className="h-1 w-12 bg-slate-900" />
+                   </h2>
                 </div>
                 
                 <div className="space-y-4">
@@ -172,39 +170,39 @@ export default function FAQ() {
                     <div 
                       key={idx}
                       className={cn(
-                        "bg-white border-2 transition-all duration-500",
-                        openIndex === idx ? "border-slate-900 shadow-[8px_8px_0px_rgba(0,0,0,0.05)]" : "border-slate-100 hover:border-slate-200"
+                        "bg-white border transition-all duration-300 rounded-2xl overflow-hidden",
+                        openIndex === idx ? "border-[#007185] shadow-xl shadow-[#007185]/5" : "border-gray-100 hover:border-gray-200"
                       )}
                     >
                       <button
                         onClick={() => setOpenIndex(openIndex === idx ? -1 : idx)}
-                        className="w-full px-8 py-8 lg:px-10 lg:py-10 flex items-center justify-between text-left group"
+                        className="w-full px-6 py-6 md:px-8 md:py-8 flex items-center justify-between text-left group"
                       >
                         <span className={cn(
-                          "text-base lg:text-lg font-black uppercase tracking-tight leading-snug pr-8 transition-colors",
-                          openIndex === idx ? "text-indigo-600" : "text-slate-900"
+                          "text-[16px] md:text-[18px] font-bold leading-tight pr-8 transition-colors",
+                          openIndex === idx ? "text-[#007185]" : "text-gray-800 group-hover:text-[#007185]"
                         )}>
                           {faq.q}
                         </span>
                         <div className={cn(
-                          "h-10 w-10 border-2 flex items-center justify-center shrink-0 transition-all",
-                          openIndex === idx ? "bg-slate-900 border-slate-900 text-white rotate-180" : "border-slate-100 text-slate-300 group-hover:border-slate-900 group-hover:text-slate-900"
+                          "h-8 w-8 rounded-full border flex items-center justify-center shrink-0 transition-all",
+                          openIndex === idx ? "bg-[#007185] border-[#007185] text-white rotate-180" : "bg-gray-50 border-gray-100 text-gray-400 group-hover:border-[#007185] group-hover:text-[#007185]"
                         )}>
-                          {openIndex === idx ? <Plus size={18} strokeWidth={3} className="rotate-45" /> : <Plus size={18} strokeWidth={3} />}
+                          <Plus size={18} className={cn("transition-transform duration-300", openIndex === idx && "rotate-45")} />
                         </div>
                       </button>
                       
                       <AnimatePresence>
                         {openIndex === idx && (
                           <motion.div
-                            initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
+                            initial={{ height: 0, opacity: 0 }} 
+                            animate={{ height: 'auto', opacity: 1 }} 
+                            exit={{ height: 0, opacity: 0 }}
                             transition={{ duration: 0.3 }}
                           >
-                            <div className="px-8 pb-8 lg:px-10 lg:pb-10">
-                              <div className="bg-slate-50 p-8 border-l-4 border-indigo-600 text-slate-600 text-sm lg:text-base font-bold leading-relaxed uppercase tracking-tight">
-                                <p>
-                                  {faq.a}
-                                </p>
+                            <div className="px-6 pb-6 md:px-8 md:pb-8">
+                              <div className="bg-[#f9f9f9] p-6 md:p-8 rounded-xl border-l-4 border-[#007185] text-gray-600 text-[15px] md:text-[16px] font-medium leading-relaxed">
+                                <p>{faq.a}</p>
                               </div>
                             </div>
                           </motion.div>
@@ -215,9 +213,12 @@ export default function FAQ() {
                 </div>
 
                 {filteredData.length === 0 && (
-                  <div className="py-24 text-center border-2 border-slate-100 bg-slate-50 shadow-sm">
-                    <h4 className="text-xl font-black text-slate-900 uppercase tracking-tight">Zero Results Returned</h4>
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mt-2 italic">No documentation matches your criteria</p>
+                  <div className="py-24 text-center bg-white border border-gray-100 rounded-3xl shadow-sm">
+                    <div className="h-16 w-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <X size={32} className="text-[#007185]" />
+                    </div>
+                    <h4 className="text-xl font-bold text-gray-900">No Solutions Found</h4>
+                    <p className="text-gray-500 font-medium mt-2">Try adjusting your search terms to find what you're looking for.</p>
                   </div>
                 )}
               </motion.div>
@@ -229,3 +230,4 @@ export default function FAQ() {
     </div>
   );
 }
+

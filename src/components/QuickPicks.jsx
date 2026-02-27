@@ -1,17 +1,25 @@
-import { motion } from "framer-motion";
-import { Plus, ArrowRight, Check, ShoppingBag, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Heart, ShoppingCart, Star } from "lucide-react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import API_BASE_URL from "../config";
+import { useState } from "react";
 import { cn } from "../lib/utils";
+
 import 'swiper/css';
 
 export default function QuickPicks({ products = [] }) {
-  const { addToCart, cart } = useCart();
-  const navigate = useNavigate();
-  
+  const { addToCart, toggleWishlist, isInWishlist, cart } = useCart();
+  const [addedItems, setAddedItems] = useState({});
+
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    setAddedItems(prev => ({ ...prev, [product.id]: true }));
+    setTimeout(() => {
+      setAddedItems(prev => ({ ...prev, [product.id]: false }));
+    }, 2000);
+  };
+
   const getImagePath = (images) => {
     try {
       const imgs = typeof images === 'string' ? JSON.parse(images) : images;
@@ -21,97 +29,96 @@ export default function QuickPicks({ products = [] }) {
   };
 
   return (
-    <section className="px-4 md:px-10 lg:px-16 py-16 lg:py-24 bg-white font-urbanist relative overflow-hidden border-b border-slate-200">
-      
-      <div className="max-w-[1920px] mx-auto relative z-10">
-        {/* --- SECTION HEADER --- */}
-        <div className="flex items-end justify-between mb-12 lg:mb-16">
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-2">
-              <div className="h-px w-8 bg-indigo-600" />
-              <span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.4em]">Essential Support</span>
-            </div>
-            <h2 className="text-3xl lg:text-5xl font-black text-slate-900 tracking-tighter uppercase leading-[0.85]">
-              System<br/>
-              <span className="text-indigo-600">Quick Picks.</span>
-            </h2>
-          </div>
-          
-          <div className="flex border-2 border-slate-900 mb-1">
-             <button className="qp-prev h-12 w-12 bg-white text-slate-900 hover:bg-slate-900 hover:text-white transition-all flex items-center justify-center border-r-2 border-slate-900 group shadow-sm cursor-pointer">
-                <ChevronLeft size={20} strokeWidth={2.5} />
-             </button>
-             <button className="qp-next h-12 w-12 bg-white text-slate-900 hover:bg-slate-900 hover:text-white transition-all flex items-center justify-center group shadow-sm cursor-pointer">
-                <ChevronRight size={20} strokeWidth={2.5} />
-             </button>
-          </div>
+    <section className="py-12 bg-white font-sans relative overflow-hidden border-b border-gray-100">
+      <div className="w-full px-4 md:px-10 lg:px-16">
+        
+        {/* --- FULL WIDTH SECTION HEADER --- */}
+        <div className="flex items-center justify-between mb-8 border-b border-gray-100 pb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-[#111] tracking-tighter">
+            System <span className="text-[#007185]">Quick Picks</span>
+          </h2>
+          <Link to="/shop" className="text-[15px] font-bold text-[#007185] hover:text-[#c45500] hover:underline transition-colors">
+            View All Selections
+          </Link>
         </div>
 
-        {/* --- CAROUSEL --- */}
-        <div className="relative">
+        {/* --- PRODUCT CAROUSEL --- */}
+        <div className="relative group">
           <Swiper
             modules={[Navigation, Autoplay]}
-            spaceBetween={0}
-            slidesPerView={1.2}
-            autoplay={{ delay: 4000, disableOnInteraction: false }}
-            navigation={{ prevEl: '.qp-prev', nextEl: '.qp-next' }}
+            spaceBetween={20}
+            slidesPerView={1.5}
+            autoplay={{ delay: 4500, disableOnInteraction: false }}
+            navigation={{ prevEl: '.qp-prev-btn', nextEl: '.qp-next-btn' }}
             breakpoints={{
-              640: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
-              1440: { slidesPerView: 4 },
-              1600: { slidesPerView: 5 },
+              640: { slidesPerView: 3 },
+              1024: { slidesPerView: 4 },
+              1280: { slidesPerView: 5 },
+              1536: { slidesPerView: 6 },
             }}
-            className="border-2 border-slate-900 !overflow-visible lg:!overflow-hidden"
+            className="!static"
           >
-            {products.slice(0, 15).map((p) => (
-              <SwiperSlide key={p.id}>
-                <div className="relative bg-white border-r-2 border-slate-900 h-[450px] flex flex-col group overflow-hidden transition-colors hover:bg-slate-50">
-                  
-                  {/* Image Area */}
-                  <div className="relative h-[220px] flex items-center justify-center p-8 bg-slate-50 group-hover:bg-white transition-colors duration-500">
-                    <img 
-                      src={getImagePath(p.images)} 
-                      alt={p.name} 
-                      className="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-700" 
-                    />
-                  </div>
-                  
-                  {/* Content Area */}
-                  <div className="flex-1 p-8 border-t-2 border-slate-900 flex flex-col bg-white">
-                    <div className="flex items-center justify-between mb-3">
-                       <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">{p.brand_name || 'AUTHENTIC'}</span>
-                    </div>
-
-                    <Link to={`/product/${p.slug || p.id}`} className="flex-1">
-                      <h4 className="text-[16px] font-black text-slate-900 uppercase tracking-tight line-clamp-2 leading-tight group-hover:text-indigo-600 transition-colors">{p.name}</h4>
-                    </Link>
+            {products.slice(10, 25).map((p) => (
+                <SwiperSlide key={p.id}>
+                  <div className="flex flex-col h-full bg-white group/card p-2">
                     
-                    <div className="mt-6 flex items-center justify-between">
-                       <p className="text-2xl font-black text-slate-900 tracking-tighter">${p.price}</p>
-                       <button 
-                        onClick={(e) => { 
-                          e.preventDefault(); 
-                          e.stopPropagation(); 
-                          addToCart(p);
-                        }}
+                    {/* Image Area */}
+                    <Link to={`/product/${p.slug || p.id}`} className="relative h-[220px] flex items-center justify-center p-4 bg-[#fcfcfc] rounded-xl mb-4 overflow-hidden border border-gray-100 group-hover/card:border-[#007185]/30 transition-all">
+                      <img 
+                        src={getImagePath(p.images)} 
+                        className="max-w-full max-h-full object-contain mix-blend-multiply group-hover/card:scale-105 transition-transform duration-500" 
+                        alt={p.name} 
+                      />
+                      
+                      {/* Quick Wishlist */}
+                      <button 
+                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleWishlist(p); }}
+                        className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-md opacity-0 group-hover/card:opacity-100 transition-opacity"
+                      >
+                        <Heart size={18} className={cn(isInWishlist(p.id) ? "text-red-500 fill-red-500" : "text-gray-400")} />
+                      </button>
+                    </Link>
+
+                    {/* Content Area */}
+                    <div className="flex flex-col px-1">
+                      <Link to={`/product/${p.slug || p.id}`} className="mb-2">
+                        <h3 className="text-[14px] font-medium text-gray-800 group-hover/card:text-[#007185] line-clamp-2 leading-tight h-10 transition-colors">
+                          {p.name}
+                        </h3>
+                      </Link>
+
+                      <div className="flex flex-col gap-1">
+                         <div className="flex items-start text-[#111]">
+                            <span className="text-[13px] mt-1 font-medium">$</span>
+                            <span className="text-[22px] font-semibold leading-none">{Math.floor(p.price)}</span>
+                            <span className="text-[13px] mt-1 font-medium">{(p.price % 1).toFixed(2).split('.')[1]}</span>
+                         </div>
+                      </div>
+
+                      <button 
+                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleAddToCart(p); }}
                         className={cn(
-                          "h-12 w-12 border-2 flex items-center justify-center transition-all duration-500",
+                          "mt-4 w-full py-2 rounded-lg text-[13px] font-medium transition-all transform active:scale-95 border",
                           cart.find(i => i.id === p.id) 
-                            ? "bg-emerald-500 text-white border-emerald-500 shadow-[4px_4px_0px_rgba(16,185,129,0.2)]" 
-                            : "bg-slate-900 text-white border-slate-900 hover:bg-indigo-600 hover:border-indigo-600 shadow-[4px_4px_0px_rgba(0,0,0,0.1)] active:shadow-none active:translate-x-1 active:translate-y-1"
+                            ? "bg-green-600 text-white border-green-600" 
+                            : "bg-[#007185] text-white border-[#007185] hover:bg-[#005a6a]"
                         )}
                       >
-                        {cart.find(i => i.id === p.id) ? <Check size={20} strokeWidth={3} /> : <Plus size={24} />}
+                        {cart.find(i => i.id === p.id) ? "Added" : "Add to Cart"}
                       </button>
                     </div>
                   </div>
-
-                  {/* Link Overlay */}
-                  <Link to={`/product/${p.slug || p.id}`} className="absolute inset-0 z-0" />
-                </div>
-              </SwiperSlide>
-            ))}
+                </SwiperSlide>
+              ))}
           </Swiper>
+
+          {/* Floating Navigation Arrows */}
+          <button className="qp-prev-btn absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-20 h-12 w-12 bg-white border border-gray-200 shadow-xl rounded-full flex items-center justify-center hover:bg-gray-50 transition-all opacity-0 group-hover:opacity-100">
+            <ChevronLeft size={28} className="text-gray-700" />
+          </button>
+          <button className="qp-next-btn absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-20 h-12 w-12 bg-white border border-gray-200 shadow-xl rounded-full flex items-center justify-center hover:bg-gray-50 transition-all opacity-0 group-hover:opacity-100">
+            <ChevronRight size={28} className="text-gray-700" />
+          </button>
         </div>
       </div>
     </section>

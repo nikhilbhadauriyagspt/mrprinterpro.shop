@@ -1,57 +1,44 @@
-import { motion } from "framer-motion";
-import { 
-  ShieldCheck, 
-  Zap,
-  Globe
-} from "lucide-react";
+import { ShieldCheck, Zap, Globe } from "lucide-react";
 
 const features = [
   {
-    icon: <ShieldCheck size={18} />,
-    title: "Authorized Partner",
-    desc: "Official HP Warranty",
-    tag: "HP OFFICIAL"
+    icon: <ShieldCheck size={22} className="text-[#007185]" />,
+    title: "Authorized HP Partner",
+    desc: "Official Warranty Support"
   },
   {
-    icon: <Zap size={18} />,
+    icon: <Zap size={22} className="text-[#007185]" />,
     title: "Instant Processing",
-    desc: "Real-time Order Flow",
-    tag: "RAPID"
+    desc: "Rapid real-time order flow"
   },
   {
-    icon: <Globe size={18} />,
-    title: "Secure Logistics",
-    desc: "Tracked US Delivery",
-    tag: "US NETWORK"
+    icon: <Globe size={22} className="text-[#007185]" />,
+    title: "Secure US Logistics",
+    desc: "Tracked nationwide delivery"
   }
 ];
 
 export default function Features() {
   return (
-    <section className="bg-white font-urbanist py-8 border-b border-slate-100">
-      <div className="max-w-[1920px] mx-auto px-4 md:px-10 lg:px-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-slate-200 border border-slate-200">
+    <section className="bg-white border-b border-gray-100 py-10 md:py-12 font-sans">
+      <div className="max-w-[1400px] mx-auto px-4 md:px-10">
+        <div className="flex flex-col md:flex-row items-center justify-center md:divide-x divide-gray-200 gap-10 md:gap-0">
           {features.map((item, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="bg-white p-6 flex items-center gap-6 group hover:bg-slate-50 transition-colors"
-            >
-              <div className="h-12 w-12 shrink-0 bg-slate-900 text-white flex items-center justify-center group-hover:bg-indigo-600 transition-colors">
-                {item.icon}
-              </div>
-              
-              <div className="flex flex-col gap-1">
-                <div className="flex items-center gap-2">
-                  <span className="text-[12px] font-black text-slate-900 uppercase tracking-tight">{item.title}</span>
-                  <div className="h-px w-4 bg-slate-300" />
-                  <span className="text-[8px] font-black text-indigo-600 uppercase tracking-widest">{item.tag}</span>
+            <div key={index} className="flex-1 w-full">
+              <div className="flex flex-col items-center text-center gap-3 group px-4 md:px-10">
+                <div className="h-12 w-12 flex items-center justify-center rounded-full bg-[#f9f9f9] border border-gray-100 transition-all duration-300 group-hover:bg-[#007185]/5 group-hover:border-[#007185]/20 group-hover:scale-105 shadow-sm">
+                  {item.icon}
                 </div>
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">{item.desc}</p>
+                <div className="flex flex-col space-y-0.5">
+                  <span className="text-[15px] md:text-[16px] font-bold text-gray-900 tracking-tight transition-colors group-hover:text-[#007185]">
+                    {item.title}
+                  </span>
+                  <p className="text-[12px] md:text-[13px] font-medium text-gray-500">
+                    {item.desc}
+                  </p>
+                </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

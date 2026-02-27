@@ -93,7 +93,7 @@ export const MiddleBannerThree = () => (
              transition={{ delay: 0.2 }}
            >
              <h3 className="text-4xl md:text-5xl font-black text-white tracking-tighter uppercase mb-2 leading-none">
-               The Tech <span className="text-blue-400 italic">Vault.</span>
+               The System <span className="text-blue-400 italic">Vault.</span>
              </h3>
              <p className="text-white/80 font-bold text-sm uppercase tracking-[0.2em]">Curated Accessories for Professionals</p>
            </motion.div>
@@ -105,3 +105,4 @@ export const MiddleBannerThree = () => (
     </div>
   </section>
 );
+

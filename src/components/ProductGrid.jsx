@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, ArrowRight, Check, Plus, ShoppingBag } from "lucide-react";
+import { Heart, ArrowRight, Check, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useState, useMemo } from "react";
@@ -13,7 +13,7 @@ export default function ProductGrid({ products = [] }) {
   const categories = ['ALL', 'PRINTERS', 'INK & TONER', 'ACCESSORIES'];
 
   const filteredProducts = useMemo(() => {
-    if (activeTab === 'ALL') return products.slice(0, 15);
+    if (activeTab === 'ALL') return products.slice(0, 20);
     
     return products.filter(p => {
       const name = p.name.toLowerCase();
@@ -21,7 +21,7 @@ export default function ProductGrid({ products = [] }) {
       if (activeTab === 'INK & TONER') return name.includes('ink') || name.includes('toner');
       if (activeTab === 'ACCESSORIES') return name.includes('cable') || name.includes('adapter') || name.includes('tray');
       return true;
-    }).slice(0, 15);
+    }).slice(0, 20);
   }, [products, activeTab]);
 
   const handleAddToCart = (product) => {
@@ -41,117 +41,102 @@ export default function ProductGrid({ products = [] }) {
   };
 
   return (
-    <section className="px-4 md:px-10 lg:px-16 py-16 lg:py-24 bg-white font-urbanist relative overflow-hidden border-b border-slate-200">
-      
-      <div className="max-w-[1920px] mx-auto relative z-10">
-        {/* --- SECTION HEADER --- */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 lg:mb-16 gap-10">
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-2">
-              <div className="h-px w-8 bg-indigo-600" />
-              <span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.4em]">Latest Inventory</span>
-            </div>
-            <h2 className="text-3xl lg:text-5xl font-black text-slate-900 tracking-tighter uppercase leading-[0.85]">
-              New<br/>
-              <span className="text-indigo-600">Arrivals.</span>
+    <section className="py-16 bg-[#EAEDED] font-sans relative overflow-hidden border-b border-gray-200">
+      <div className="w-full px-4 md:px-10 lg:px-16">
+        
+        {/* --- CLEAN BOLD SECTION HEADER --- */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-8 border-b border-gray-200 pb-8">
+          <div className="space-y-2">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-[#111] tracking-tighter">
+              Latest <span className="text-[#007185]">Arrivals</span>
             </h2>
           </div>
 
-          {/* Category Tabs - Square Style */}
-          <div className="flex flex-wrap border-2 border-slate-900 bg-slate-900 p-0.5 shadow-[6px_6px_0px_rgba(0,0,0,0.1)]">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveTab(cat)}
-                className={cn(
-                  "px-6 py-3 text-[10px] font-black uppercase tracking-widest transition-all",
-                  activeTab === cat 
-                    ? "bg-white text-slate-900" 
-                    : "text-white hover:bg-slate-800"
-                )}
-              >
-                {cat}
-              </button>
-            ))}
+          <div className="flex flex-col items-center lg:items-end gap-4">
+            {/* Premium Category Tabs */}
+            <div className="flex gap-1 p-1 bg-white rounded-lg border border-gray-200 shadow-sm">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveTab(cat)}
+                  className={cn(
+                    "px-5 py-2 text-[11px] font-bold uppercase transition-all rounded-md",
+                    activeTab === cat 
+                      ? "bg-[#007185] text-white" 
+                      : "text-gray-500 hover:text-gray-900"
+                  )}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+            <Link to="/shop" className="text-[14px] font-bold text-[#007185] hover:text-[#c45500] hover:underline transition-all">
+              View Entire Catalog
+            </Link>
           </div>
         </div>
 
-        {/* --- PRODUCT GRID --- */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-px bg-slate-200 border border-slate-200">
+        {/* --- PRODUCT GRID: BOX STYLE (Hero Grid Card Look) --- */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
           <AnimatePresence mode="popLayout">
             {filteredProducts.map((p, i) => (
                 <motion.div 
                   layout
                   key={p.id}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.4 }}
-                  className="group relative bg-white p-6 flex flex-col h-[450px] transition-colors hover:bg-slate-50"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  className="bg-white p-5 shadow-lg flex flex-col min-h-[420px] group transition-all hover:shadow-2xl border border-gray-100"
                 >
-                  {/* Wishlist */}
-                  <button 
-                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleWishlist(p); }}
-                    className={cn(
-                      "absolute top-4 right-4 z-20 h-10 w-10 border-2 transition-all duration-300 flex items-center justify-center",
-                      isInWishlist(p.id) 
-                        ? "bg-slate-900 text-white border-slate-900 shadow-[4px_4px_0px_rgba(0,0,0,0.1)]" 
-                        : "bg-white text-slate-300 border-slate-100 hover:border-slate-900 hover:text-red-500"
-                    )}
-                  >
-                    <Heart size={16} fill={isInWishlist(p.id) ? "currentColor" : "none"} strokeWidth={2.5} />
-                  </button>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-[11px] font-bold text-[#007185] uppercase tracking-tight">{p.brand_name || 'AUTHENTIC'}</span>
+                    <button 
+                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleWishlist(p); }}
+                      className="text-gray-300 hover:text-red-500 transition-colors"
+                    >
+                      <Heart size={18} fill={isInWishlist(p.id) ? "currentColor" : "none"} className={isInWishlist(p.id) ? "text-red-500" : ""} />
+                    </button>
+                  </div>
 
-                  {/* Visual */}
-                  <Link to={`/product/${p.slug}`} className="flex-1 flex flex-col">
-                    <div className="relative h-[200px] mb-6 flex items-center justify-center p-4">
+                  <Link to={`/product/${p.slug}`} className="flex-1 flex flex-col overflow-hidden">
+                    <div className="flex-1 overflow-hidden mb-4 relative">
                       <img 
                         src={getImagePath(p.images)} 
                         alt={p.name}
-                        className="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-700"
+                        className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110"
                         onError={(e) => { e.target.src = "https://via.placeholder.com/400x400?text=Not+Found"; }}
                       />
                     </div>
 
-                    <div className="space-y-3">
-                      <span className="text-[9px] font-black text-indigo-600 uppercase tracking-widest">{p.brand_name || 'AUTHENTIC'}</span>
-                      <h3 className="text-[15px] font-black text-slate-900 uppercase tracking-tight line-clamp-2 leading-tight group-hover:text-indigo-600 transition-colors">
+                    <div className="space-y-2">
+                      <h3 className="text-[16px] font-bold text-[#111] line-clamp-2 leading-tight h-10 group-hover:text-[#007185] transition-colors">
                         {p.name}
                       </h3>
-                      <div className="pt-2">
-                        <span className="text-2xl font-black text-slate-950 tracking-tighter">${p.price}</span>
+                      <div className="flex items-start">
+                         <span className="text-[13px] mt-1 font-medium text-gray-900">$</span>
+                         <span className="text-[24px] font-bold text-gray-900 leading-none">{Math.floor(p.price)}</span>
+                         <span className="text-[13px] mt-1 font-medium text-gray-900">{(p.price % 1).toFixed(2).split('.')[1]}</span>
                       </div>
                     </div>
                   </Link>
 
-                  {/* Actions */}
-                  <div className="mt-6">
+                  <div className="mt-4 pt-4 border-t border-gray-50">
                     <button 
                       onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleAddToCart(p); }}
                       disabled={addedItems[p.id]}
                       className={cn(
-                        "w-full h-12 border-2 flex items-center justify-center gap-3 font-black text-[10px] uppercase tracking-widest transition-all",
+                        "w-full py-2.5 rounded-md font-bold text-[13px] transition-all transform active:scale-95 border",
                         addedItems[p.id] 
-                          ? "bg-emerald-500 text-white border-emerald-500" 
-                          : "bg-slate-900 text-white border-slate-900 hover:bg-indigo-600 hover:border-indigo-600 shadow-[4px_4px_0px_rgba(0,0,0,0.1)] active:shadow-none active:translate-x-1 active:translate-y-1"
+                          ? "bg-green-600 text-white border-green-600" 
+                          : "bg-[#007185] text-white border-[#007185] hover:bg-[#005a6a]"
                       )}
                     >
-                      {addedItems[p.id] ? <Check size={14} strokeWidth={3} /> : <ShoppingBag size={14} />}
-                      {addedItems[p.id] ? "ADDED" : "BUY NOW"}
+                      {addedItems[p.id] ? "Added" : "Add to Cart"}
                     </button>
                   </div>
                 </motion.div>
             ))}
           </AnimatePresence>
-        </div>
-
-        <div className="mt-16 flex justify-center">
-          <Link to="/shop">
-            <button className="h-14 px-12 border-2 border-slate-900 text-slate-900 font-black text-[11px] uppercase tracking-[0.3em] hover:bg-slate-900 hover:text-white transition-all flex items-center gap-4 group">
-              BROWSE COMPLETE GALLERY
-              <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
-            </button>
-          </Link>
         </div>
       </div>
     </section>

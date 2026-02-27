@@ -10,7 +10,7 @@ export default function CookiePolicy() {
       lastUpdated="February 23, 2026"
     >
       <p className="lead">
-        This Cookie Policy explains how MISTERPRINTER  ("Company," "we," "us," or "our") uses cookies and similar technologies when you visit our website: <a href="https://misterprinter.shop/">https://misterprinter.shop/</a>
+        This Cookie Policy explains how MrPrinterPro  ("Company," "we," "us," or "our") uses cookies and similar technologies when you visit our website: <a href="https://mrprinterpro.shop/">https://mrprinterpro.shop/</a>
       </p>
       <p>
         This Cookie Policy should be read together with our <Link to="/privacy-policy">Privacy Policy</Link> and <Link to="/terms-and-conditions">Terms and Conditions</Link>.
@@ -69,7 +69,7 @@ export default function CookiePolicy() {
       <p>These cookies allow us to:</p>
       <ul>
         <li>Improve website structure</li>
-        <li>Identify technical issues</li>
+        <li>Identify system issues</li>
         <li>Enhance user experience</li>
         <li>Optimize product listings</li>
       </ul>
@@ -138,8 +138,8 @@ export default function CookiePolicy() {
         We do not sell personal information. If cookies are considered “sharing” under certain US state privacy laws (such as targeted advertising), you may exercise your rights by:
       </p>
       <ul>
-        <li>Emailing: <a href="mailto:info@misterprinter.shop">info@misterprinter.shop</a></li>
-        <li>Visiting: <Link to="/contact">https://misterprinter.shop/contact</Link></li>
+        <li>Emailing: <a href="mailto:info@mrprinterpro.shop">info@mrprinterpro.shop</a></li>
+        <li>Visiting: <Link to="/contact">https://mrprinterpro.shop/contact</Link></li>
       </ul>
 
       <h2>9. CHILDREN’S PRIVACY</h2>
@@ -154,16 +154,19 @@ export default function CookiePolicy() {
       <h2>11. CONTACT INFORMATION</h2>
       <p>If you have any questions regarding this Cookie Policy, please contact:</p>
       <div className="bg-slate-50 p-8 rounded-3xl border border-slate-100 my-8 not-prose">
-        <address className="not-italic text-slate-700 font-bold leading-relaxed space-y-2 uppercase tracking-tighter">
-          <p className="text-slate-900 font-black">MISTERPRINTER </p>
+        <address className="not-italic text-gray-700 font-bold leading-relaxed space-y-2 uppercase tracking-tighter">
+          <p className="text-gray-900 font-black">MrPrinterPro </p>
           <p>Authorized HP Partner</p>
-          <p>10413 W Markham St</p>
-          <p>Little Rock, AR 72205</p>
+          <p>112 Water St Suite 202</p>
+          <p>Boston, MA 02109</p>
           <p>United States</p>
-          <p className="pt-4 text-blue-600 font-black lowercase">info@misterprinter.shop</p>
+          <p className="pt-4 text-blue-600 font-black lowercase">info@mrprinterpro.shop</p>
         </address>
       </div>
     </PolicyLayout>
   );
 }
+
+
+
 
